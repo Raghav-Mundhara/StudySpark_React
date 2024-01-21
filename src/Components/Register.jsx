@@ -8,7 +8,8 @@ import { getFirestore } from "firebase/firestore";
 import { app } from '../firebase.js';
 import { Input } from "@nextui-org/react";
 import { Button } from '@nextui-org/react';
-import Select from 'react-select';
+// import Select from 'react-select';
+import {Select, SelectItem} from "@nextui-org/react";
 
 const RegisterContainer = styled.div`
     text-align: center;
@@ -56,7 +57,12 @@ const StyledInput = styled(Input)`
     }
 `;
 
-
+const StyledSelectItem = styled(SelectItem)`
+    margin-bottom: 15px;
+    input {
+        color: white;
+    }
+`;
 const StyledLink = styled(Link)`
     margin-top: 15px;
     font-size: 14px;
@@ -143,21 +149,26 @@ export default function Register() {
                     defaultValue="test@1234"
                     color='primary'
                     className="max-w-xs" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                <Select
-                    isMulti
-                    options={options}
-                    value={selectedSkills}
-                    onChange={handleChange}
-                    placeholder="Select your skills..."
-                    menuPortalTarget={document.body}
-                    menuPosition='fixed'
-                    styles={{
-                        menu: provided => ({
-                            ...provided,
-                            zIndex: 9999,
-                        }),
-                    }}
-                />
+                <div className="flex w-full max-w-xs flex-col gap-2">
+                    <Select
+                        label="Skills"
+                        selectionMode="multiple"
+                        placeholder="Select your skills"
+                        selectedKeys={selectedSkills}
+                        className="max-w-xs"
+                        variant='bordered'
+                        color='primary'
+                        onSelectionChange={setSelectedSkills}
+
+                    >
+                        {listSkills.map((skill) => (
+                            <SelectItem key={skill.id} value={skill.name} >
+                                {skill.name}
+                            </SelectItem>
+                        ))}
+                    </Select>
+                    
+                </div>
                 <br />
                 <Button type="submit" variant='shadow' color="primary">Register</Button>
                 <StyledLink to="/login">Already have an account? Login Now !</StyledLink>
