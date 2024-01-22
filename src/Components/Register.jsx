@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase.js';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { createUserWithEmailAndPassword  , updateProfile} from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { collection, addDoc} from 'firebase/firestore';
 import { getFirestore } from "firebase/firestore";
@@ -62,10 +62,10 @@ const StyledLink = styled(Link)`
     }
 `;
 export default function Register() {
-    const [email, setEmail] = React.useState('raghav1@gmail.com');
-    const [password, setPassword] = React.useState('test@1234');
-    const [name, setName] = React.useState('Raghav');
-    const [phone, setPhone] = React.useState('1234567890');
+    const [email, setEmail] = React.useState(null);
+    const [password, setPassword] = React.useState(null);
+    const [name, setName] = React.useState(null);
+    const [phone, setPhone] = React.useState(null);
 
     const listSkills = [
         { id: 1, name: 'Firebase' },
@@ -80,6 +80,7 @@ export default function Register() {
         { id: 10, name: 'Express.js' },
     ]
     const [selectedSkills, setSelectedSkills] = useState([]);
+    let navigate=useNavigate();
 
     const Register = async (e) => {
         e.preventDefault();
@@ -94,6 +95,11 @@ export default function Register() {
                 phone: phone,
                 // skills: selectedSkills
             });
+            updateProfile(auth.currentUser, {
+                displayName: name,
+            });
+            alert("Registered Successfully");
+            navigate("/login");
         } catch (error) {
             console.log(error);
         }
