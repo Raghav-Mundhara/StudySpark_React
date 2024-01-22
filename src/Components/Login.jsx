@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
+import {useNavigate} from 'react-router-dom';
 const LoginContainer = styled.div`
     text-align: center;
     padding: 20px;
@@ -54,13 +55,16 @@ const StyledLink = styled(Link)`
 export default function Login() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    let navigate = useNavigate();
 
     const Register = (e) => {
         e.preventDefault();
+        console.log(email, password)
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
+                navigate('/profile');
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -77,15 +81,13 @@ export default function Login() {
                     type="email"
                     label="Email"
                     variant="bordered"
-                    defaultValue="test@gmail.com"
                     color='primary'
                     className="max-w-xs mb-px" onChange={(e) => setEmail(e.target.value)} />
                 <StyledInput
                     label="Password"
                     variant="bordered"
-                    defaultValue="test@1234"
                     color='primary'
-                    className="max-w-xs" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    className="max-w-xs" type="password"  onChange={(e) => setPassword(e.target.value)} />
                 <Button type="submit" variant='shadow' color="primary">Login</Button>
             </LoginForm>
             <StyledLink to="/register">Don't have an account? Register</StyledLink>

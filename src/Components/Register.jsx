@@ -3,12 +3,11 @@ import { auth } from '../firebase.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { collection, addDoc, getDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, addDoc} from 'firebase/firestore';
 import { getFirestore } from "firebase/firestore";
 import { app } from '../firebase.js';
 import { Input } from "@nextui-org/react";
 import { Button } from '@nextui-org/react';
-// import Select from 'react-select';
 import {Select, SelectItem} from "@nextui-org/react";
 
 const RegisterContainer = styled.div`
@@ -24,12 +23,6 @@ const RegisterContainer = styled.div`
     background-color: black;
 `;
 
-// const Select = styled.select`
-//     margin-bottom: 15px;
-//     padding: 10px;
-//     width: 100%;
-//     box-sizing: border-box;
-// `;
 
 const RegisterForm = styled.form`
     display: flex;
@@ -57,12 +50,7 @@ const StyledInput = styled(Input)`
     }
 `;
 
-const StyledSelectItem = styled(SelectItem)`
-    margin-bottom: 15px;
-    input {
-        color: white;
-    }
-`;
+
 const StyledLink = styled(Link)`
     margin-top: 15px;
     font-size: 14px;
@@ -74,12 +62,11 @@ const StyledLink = styled(Link)`
     }
 `;
 export default function Register() {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [name, setName] = React.useState('');
-    const [phone, setPhone] = React.useState('');
+    const [email, setEmail] = React.useState('raghav1@gmail.com');
+    const [password, setPassword] = React.useState('test@1234');
+    const [name, setName] = React.useState('Raghav');
+    const [phone, setPhone] = React.useState('1234567890');
 
-    // const listSkills= ['Firebase','C++','Java','Python','React','HTML','CSS','JavaScript','Node.js','Express.js','MongoDB','SQL','NoSQL','C','C#','PHP','Ruby','Swift','Kotlin','Go','Rust','TypeScript','Angular','Vue','Django','Flask','Spring','Bootstrap','Tailwind','Material UI','SASS','LESS','jQuery','ASP.NET','Laravel','Ruby on Rails','Android','iOS','React Native','Flutter','Unity','Docker','Kubernetes','AWS','Azure','Google Cloud','Heroku','Netlify','Firebase','Git','GitHub','GitLab','BitBucket','Jira','Trello','Slack','Notion','Figma','Adobe XD','Sketch','InVision','Zeplin','Postman','Insomnia','VS Code','Sublime Text','Atom','Vim','Eclipse','IntelliJ','Android Studio','Xcode','Visual Studio','Vim','Emacs','Nano','Windows','MacOS','Linux','Ubuntu','iOS','Android','Windows','MacOS']
     const listSkills = [
         { id: 1, name: 'Firebase' },
         { id: 2, name: 'C++' },
@@ -94,14 +81,6 @@ export default function Register() {
     ]
     const [selectedSkills, setSelectedSkills] = useState([]);
 
-    const handleChange = (selectedOptions) => {
-        setSelectedSkills(selectedOptions);
-    };
-
-    const options = listSkills.map((skill) => ({
-        value: skill.id,
-        label: skill.name,
-    }));
     const Register = async (e) => {
         e.preventDefault();
         try {
@@ -109,11 +88,11 @@ export default function Register() {
             const user = userCredential.user;
             console.log(user);
             const db = getFirestore(app);
-            const docRef = await setDoc(doc(db, "users", email), {
+            await addDoc(collection(db, "users"), {
                 name: name,
                 email: email,
                 phone: phone,
-                skills: selectedSkills,
+                // skills: selectedSkills
             });
         } catch (error) {
             console.log(error);
@@ -127,28 +106,24 @@ export default function Register() {
                 <StyledInput
                     label="Name"
                     variant="bordered"
-                    defaultValue="Test"
                     color='primary'
-                    className="max-w-xs" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+                    className="max-w-xs"  onChange={(e) => setName(e.target.value)} />
                 <StyledInput
                     label="Phone Number"
                     variant="bordered"
-                    defaultValue="1234567890"
                     color='primary'
-                    className="max-w-xs" placeholder="Phone Number" onChange={(e) => setPhone(e.target.value)} />
+                    className="max-w-xs"  onChange={(e) => setPhone(e.target.value)} />
                 <StyledInput
                     type="email"
                     label="Email"
                     variant="bordered"
-                    defaultValue="test@gmail.com"
                     color='primary'
                     className="max-w-xs mb-px" onChange={(e) => setEmail(e.target.value)} />
                 <StyledInput
                     label="Password"
                     variant="bordered"
-                    defaultValue="test@1234"
                     color='primary'
-                    className="max-w-xs" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    className="max-w-xs" type="password"  onChange={(e) => setPassword(e.target.value)} />
                 <div className="flex w-full max-w-xs flex-col gap-2">
                     <Select
                         label="Skills"
@@ -159,7 +134,6 @@ export default function Register() {
                         variant='bordered'
                         color='primary'
                         onSelectionChange={setSelectedSkills}
-
                     >
                         {listSkills.map((skill) => (
                             <SelectItem key={skill.id} value={skill.name} >
