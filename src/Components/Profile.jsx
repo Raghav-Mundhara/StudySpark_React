@@ -162,7 +162,6 @@ const Profile = () => {
                     defaultValue="Give a brief description of your project here."
                     className="max-w-5xl"
                   />
-
                 </ul>
               </CardBody>
             </Card>
