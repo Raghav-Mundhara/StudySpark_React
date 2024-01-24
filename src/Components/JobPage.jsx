@@ -1,4 +1,4 @@
-// FrontEndService.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@nextui-org/react';
@@ -83,7 +83,7 @@ const Pricing = styled.p`
 `;
 
 
-const FrontEndService = () => {
+const JobPage = () => {
   
   const price = '$X,XXX'; 
 
@@ -161,4 +161,4 @@ const FrontEndService = () => {
   );
 };
 
-export default FrontEndService;
+export default JobPage;
