@@ -50,7 +50,7 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      {/* <Header>
+      <Header>
         <Button
           color="primary"
           auto
@@ -62,11 +62,8 @@ const Profile = () => {
         >
           Logout
         </Button>
-      </Header> */}
-
-      <Header>
-        
       </Header>
+      
       <ContentContainer>
         <Card
           className="min-w-full max-w-2xl"
