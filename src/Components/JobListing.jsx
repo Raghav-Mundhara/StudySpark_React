@@ -1,16 +1,25 @@
 import React from 'react'
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Header1 from './Header1';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: auto;
+  background-color: black;
+`;
 function JobListing() {
     const list = [
         {
             title: "Orange",
-            img: "/images/fruit-1.jpeg",
+            img: "/images/fruit.png",
             price: "$5.50",
         },
         {
             title: "Tangerine",
-            img: "/images/fruit-2.jpeg",
+            img: "/images/fruit.png",
             price: "$3.00",
         },
         {
@@ -45,11 +54,15 @@ function JobListing() {
         },
     ];
     return (
-        <div>
+        <Container>
             <Header1/>
-            <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+            <div className="gap-2 grid grid-cols-2 sm:grid-cols-4" style={{
+                margin: "auto",
+            }}>
                 {list.map((item, index) => (
-                    <Card shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
+                    <Card shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")} style={{
+                        marginTop: "20px",
+                    }}>
                         <CardBody className="overflow-visible p-0">
                             <Image
                                 shadow="sm"
@@ -67,7 +80,7 @@ function JobListing() {
                     </Card>
                 ))}
             </div>
-        </div>
+        </Container>
     );
 }
 

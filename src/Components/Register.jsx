@@ -95,7 +95,7 @@ export default function Register() {
                 console.log(skill);
                 newListOfSkills.push(skill);
             })
-            await setDoc(doc(db, "users",user.uid), {
+            await setDoc(doc(db, "users",email), {
                 name: name,
                 email: email,
                 phone: phone,
