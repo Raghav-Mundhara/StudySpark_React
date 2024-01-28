@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
 import {AcmeLogo} from "./AcmeLogo.jsx";
-import {SearchIcon} from "./SearchIcon.jsx";
+import {SearchIcon} from "./searchIcon.jsx";
 function Header1() {
     return (
         <Navbar isBordered>
