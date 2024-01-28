@@ -194,7 +194,6 @@ const Profile = () => {
               </Card>
             </CardBody>
             <CardFooter>
-              {/* <Button color="success">Edit Profile</Button> */}
             <Link to="/editprofile"><Button color="success">Edit Profile</Button></Link>
             </CardFooter>
           </Card>
