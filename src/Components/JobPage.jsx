@@ -75,8 +75,8 @@ const ContactButton = styled(Button)`
 
 const Pricing = styled.p`
   font-size: 18px;
-  margin-top: 20px; // Adjust the margin as needed
-  margin-bottom: 20px; // Add margin-bottom for space
+  margin-top: 20px;
+  margin-bottom: 20px; 
 `;
 
 const SkillsContainer = styled.div`
