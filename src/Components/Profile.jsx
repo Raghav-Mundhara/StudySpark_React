@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Card, CardHeader, CardBody, CardFooter, Avatar, Button, Divider } from "@nextui-org/react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -169,37 +170,39 @@ const Profile = () => {
                     labelPlacement="outside"
                     defaultValue="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
                     className="max-w-5xl"
-                  />
-                  <br />
-                  <Textarea
-                    isReadOnly
-                    label="Project 2"
-                    variant="bordered"
-                    labelPlacement="outside"
-                    defaultValue="Give a brief description of your project here."
-                    className="max-w-5xl"
-                  />
-                  <br />
-                  <Textarea
-                    isReadOnly
-                    label="Project 3"
-                    variant="bordered"
-                    labelPlacement="outside"
-                    defaultValue="Give a brief description of your project here."
-                    className="max-w-5xl"
-                  />
-                </ul>
-              </CardBody>
-            </Card>
-          </CardBody>
-          <CardFooter>
-            <Button color="success">Edit Profile</Button>
-          </CardFooter>
-        </Card>
-      </ContentContainer>
-      <br />
-    </ProfileContainer>
-  );
-};
-
-export default Profile;
+                    />
+                    <br />
+                    <Textarea
+                      isReadOnly
+                      label="Project 2"
+                      variant="bordered"
+                      labelPlacement="outside"
+                      defaultValue="Give a brief description of your project here."
+                      className="max-w-5xl"
+                    />
+                    <br />
+                    <Textarea
+                      isReadOnly
+                      label="Project 3"
+                      variant="bordered"
+                      labelPlacement="outside"
+                      defaultValue="Give a brief description of your project here."
+                      className="max-w-5xl"
+                    />
+                  </ul>
+                </CardBody>
+              </Card>
+            </CardBody>
+            <CardFooter>
+              {/* <Button color="success">Edit Profile</Button> */}
+            <Link to="/editprofile"><Button color="success">Edit Profile</Button></Link>
+            </CardFooter>
+          </Card>
+        </ContentContainer>
+        <br />
+      </ProfileContainer>
+    );
+  };
+  
+  export default Profile;
+  
