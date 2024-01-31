@@ -15,7 +15,7 @@ const Container = styled.div`
   background-position: center;
 `;
 const CardHeader = ({ title, icon }) => (
-  <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+  <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold",fontFamily: 'Times New Roman' }}>
     {icon && <FontAwesomeIcon icon={icon} className="mr-2" />} {/* Display the provided icon */}
     <span>{title}</span>
     <FontAwesomeIcon icon={faHeart} className="ml-auto text-red-500" /> {/* Display the red heart icon on the right */}
@@ -68,14 +68,16 @@ function JobListing() {
               height: "250px",
               margin: "10px",
               padding: "20px",
+              backgroundImage: `url(${"images/orange.jpg"})`, 
+              backgroundSize: "cover",
             }}
 
             
           >
-            <CardHeader title={item.title} icon={item.icon} />
+            <CardHeader title={item.title} icon={item.icon} style={{ fontFamily: 'Times New Roman' }}></CardHeader>
 
             <CardBody className="overflow-visible p-0">
-              <p>{item.desc}</p>
+            <p style={{ fontSize: "1.2rem" }}>{item.desc}</p>
               <Chip color="success" className="mt-2">
                 {item.skills}
               </Chip>
