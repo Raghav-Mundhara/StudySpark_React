@@ -16,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/Jobpage" element={<JobPage/>}/>
         <Route path="/JobListing" element={<JobListing/>}/>
+  
       </Routes>
     </BrowserRouter>
     </NextUIProvider>

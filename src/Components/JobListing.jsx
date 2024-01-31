@@ -1,87 +1,96 @@
-import React from 'react'
-import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import React from 'react';
+import { Card, CardBody, CardFooter, Chip, Image } from "@nextui-org/react";
 import Header1 from './Header1';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook, faFileAlt, faCode,faHeart } from '@fortawesome/free-solid-svg-icons'; 
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin: auto;
-  background-color: black;
+  background-image: url("/images/programming.avif");
+  background-size: cover;
+  background-position: center;
 `;
+const CardHeader = ({ title, icon }) => (
+  <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+    {icon && <FontAwesomeIcon icon={icon} className="mr-2" />} {/* Display the provided icon */}
+    <span>{title}</span>
+    <FontAwesomeIcon icon={faHeart} className="ml-auto text-red-500" /> {/* Display the red heart icon on the right */}
+  </div>
+);
+
 function JobListing() {
-    const list = [
-        {
-            title: "Orange",
-            img: "/images/fruit.png",
-            price: "$5.50",
-        },
-        {
-            title: "Tangerine",
-            img: "/images/fruit.png",
-            price: "$3.00",
-        },
-        {
-            title: "Raspberry",
-            img: "/images/fruit-3.jpeg",
-            price: "$10.00",
-        },
-        {
-            title: "Lemon",
-            img: "/images/fruit-4.jpeg",
-            price: "$5.30",
-        },
-        {
-            title: "Avocado",
-            img: "/images/fruit-5.jpeg",
-            price: "$15.70",
-        },
-        {
-            title: "Lemon 2",
-            img: "/images/fruit-6.jpeg",
-            price: "$8.00",
-        },
-        {
-            title: "Banana",
-            img: "/images/fruit-7.jpeg",
-            price: "$7.50",
-        },
-        {
-            title: "Watermelon",
-            img: "/images/fruit-8.jpeg",
-            price: "$12.20",
-        },
-    ];
-    return (
-        <Container>
-            <Header1/>
-            <div className="gap-2 grid grid-cols-2 sm:grid-cols-4" style={{
-                margin: "auto",
-            }}>
-                {list.map((item, index) => (
-                    <Card shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")} style={{
-                        marginTop: "20px",
-                    }}>
-                        <CardBody className="overflow-visible p-0">
-                            <Image
-                                shadow="sm"
-                                radius="lg"
-                                width="100%"
-                                alt={item.title}
-                                className="w-full object-cover h-[140px]"
-                                src={item.img}
-                            />
-                        </CardBody>
-                        <CardFooter className="text-small justify-between">
-                            <b>{item.title}</b>
-                            <p className="text-default-500">{item.price}</p>
-                        </CardFooter>
-                    </Card>
-                ))}
-            </div>
-        </Container>
-    );
+  const list = [
+    {
+      title: "Craft a Comprehensive Case Study on Sensors and Actuators",
+      desc: "Seeking a skilled freelancer to conduct in-depth research and create a compelling case study exploring the intricate world of Sensors and Actuators.",
+      price: "Hourly $5-$10",
+      skills: "Electronics, Sensors, Actuators",
+      icon: faBook , 
+    },
+    {
+      title: "Develop an Informative PPT on AI-ML in Healthcare",
+      desc: "Looking for a talented freelancer to create a visually engaging PowerPoint presentation focused on the transformative impact of Artificial Intelligence and Machine Learning in the healthcare sector.",
+      price: "Hourly $3-$7",
+      skills: "AI, ML, Healthcare",
+      icon: faFileAlt, 
+    },
+    {
+      title: "Web Development",
+      desc: "Looking for a talented freelancer to create a backend for my Website.",
+      price: "Hourly $15-$20",
+      skills: "Django, Flask",
+      icon: faCode, 
+    },
+  ];
+
+  return (
+    <Container>
+      <Header1 />
+      <div
+        className="gap-2 grid grid-cols-2 sm:grid-cols-4"
+        style={{
+          margin: "auto",
+        }}
+      >
+        {list.map((item, index) => (
+          <Card
+            shadow="sm"
+            key={index}
+            isPressable
+            onPress={() => console.log("item pressed")}
+            style={{
+              marginTop: "20px",
+              width: "700px",
+              height: "250px",
+              margin: "10px",
+              padding: "20px",
+            }}
+
+            
+          >
+            <CardHeader title={item.title} icon={item.icon} />
+
+            <CardBody className="overflow-visible p-0">
+              <p>{item.desc}</p>
+              <Chip color="success" className="mt-2">
+                {item.skills}
+              </Chip>
+            </CardBody>
+
+            <CardFooter>
+              <div className="flex justify-between">
+                <div className="text-sm">{item.price}</div>
+              </div>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  );
 }
 
-export default JobListing
+export default JobListing;
