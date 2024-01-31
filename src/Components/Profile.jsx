@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { UserIcon } from './UserIcon';
 import { Chip } from '@nextui-org/react';
 import { Textarea } from '@nextui-org/react';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
+
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,7 +37,7 @@ const Profile = () => {
   const [userNumber, setUserNumber] = useState(null);
   let navigate = useNavigate();
   const auth = getAuth();
-
+  const [skills, setSkills] = useState([]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -48,6 +51,27 @@ const Profile = () => {
     return () => unsubscribe();
   }, [auth]);
 
+  useEffect(() => {
+    if (userEmail == null) return;
+    var docRef = doc(db, "users", userEmail);
+    getDoc(docRef)
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          var temp = docSnap.data().skills;
+          console.log(temp);
+          setSkills(temp);
+          console.log(skills);
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, [userEmail]);
+  useEffect(() => {
+    console.log("Updated skills:", skills);
+  }, [skills]);
   return (
     <ProfileContainer>
       <Header>
@@ -63,6 +87,7 @@ const Profile = () => {
           Logout
         </Button>
       </Header>
+
       <ContentContainer>
         <Card
           className="min-w-full max-w-2xl"
@@ -99,27 +124,28 @@ const Profile = () => {
                   display: 'inline',
                 }}
               >
-                <Chip color="danger" style={{
-                  marginRight: '10px',
-                }}
-                  variant='shadow'
-                >
-                  C++
-                </Chip>
-                <Chip color="primary" style={{
-                  marginRight: '10px',
-                }}
-                  variant='shadow'
-                >
-                  Python
-                </Chip>
-                <Chip color="secondary" style={{
-                  marginRight: '10px',
-                }}
-                  variant='shadow'
-                >
-                  Flutter
-                </Chip>
+                {
+                  skills.length === 0 && (
+                    <Chip
+                      color="secondary"
+                      style={{
+                        marginRight: '10px',
+                      }}
+                      variant='shadow'
+                    >
+                      Loading....
+                    </Chip>
+                  )
+                }
+                {skills.map((skill) => (
+                  <Chip color="secondary" style={{
+                    marginRight: '10px',
+                  }}
+                    variant='shadow'
+                  >
+                    {skill}
+                  </Chip>
+                ))}
               </CardBody>
             </Card>
             <Divider
@@ -162,7 +188,6 @@ const Profile = () => {
                     defaultValue="Give a brief description of your project here."
                     className="max-w-5xl"
                   />
-
                 </ul>
               </CardBody>
             </Card>
