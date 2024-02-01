@@ -9,22 +9,22 @@ function Header1() {
             <NavbarContent justify="start">
                 <NavbarBrand className="mr-4">
                     <AcmeLogo />
-                    <p className=" sm:block font-bold text-inherit">ACME</p>
+                    <p className=" sm:block font-bold text-inherit">StudySpark</p>
                 </NavbarBrand>
                 <NavbarContent className=" sm:flex gap-3">
-                    <NavbarItem>
-                        <Link color="foreground" href="#">
-                            Features
-                        </Link>
-                    </NavbarItem>
                     <NavbarItem isActive>
+                        <Link color="foreground" href="#">
+                            Find a Job
+                        </Link>
+                    </NavbarItem>
+                    <NavbarItem >
                         <Link href="#" aria-current="page" color="secondary">
-                            Customers
+                            Suggested 
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
                         <Link color="foreground" href="#">
-                            Integrations
+                            Post a Job
                         </Link>
                     </NavbarItem>
                 </NavbarContent>
