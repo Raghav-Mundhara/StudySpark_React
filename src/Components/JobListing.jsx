@@ -13,7 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 100vh;
   margin: auto;
-  background-image: url("/images/programming.avif");
+  background-color: #000000;
   background-size: cover;
   background-position: center;
 `;
@@ -21,7 +21,7 @@ const CardHeader = ({ title, icon }) => (
   <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold",fontFamily: 'Times New Roman' }}>
     {icon && <FontAwesomeIcon icon={icon} className="mr-2" />}
     <span>{title}</span>
-    <FontAwesomeIcon icon={faHeart} className="ml-auto text-red-500" /> 
+
   </div>
 );
 
@@ -71,7 +71,8 @@ function JobListing() {
               height: "250px",
               margin: "10px",
               padding: "20px",
-              backgroundImage: `url(${"images/orange.jpg"})`,
+              //backgroundColor: "rgba(255, 255, 255, 0.8)",
+              backgroundColor: 'lightblue',
               backgroundSize: "cover",
             }}
           >
