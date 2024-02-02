@@ -26,13 +26,10 @@ const CardHeader = ({ title, icon }) => (
 );
 
 const NewCardFooter=({budget,deadline})=>{
-  console.log(deadline)
   const deadlineDate = deadline.toDate();
-  console.log(deadlineDate);
   const currentDate = new Date();
   const daysDifference = Math.floor((deadlineDate - currentDate) / (1000 * 60 * 60 * 24));
 
-  console.log(currentDate);
   return (
     <div className="flex justify-between">
       <div className="text-sm" style={{ marginRight: '10px' }}>Budget:- ₹{budget}</div>
