@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import { Card, CardBody, CardFooter, Chip, Image } from "@nextui-org/react";
 import Header1 from './Header1';
 import styled from 'styled-components';
@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faFileAlt, faCode,faHeart } from '@fortawesome/free-solid-svg-icons'; 
 import {auth} from '../firebase.js';
 import { useNavigate } from 'react-router';
+import { db } from '../firebase.js';
+import { collection, getDocs } from 'firebase/firestore';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,38 +19,39 @@ const Container = styled.div`
 `;
 const CardHeader = ({ title, icon }) => (
   <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold",fontFamily: 'Times New Roman' }}>
-    {icon && <FontAwesomeIcon icon={icon} className="mr-2" />} {/* Display the provided icon */}
+    {icon && <FontAwesomeIcon icon={icon} className="mr-2" />}
     <span>{title}</span>
-    <FontAwesomeIcon icon={faHeart} className="ml-auto text-red-500" /> {/* Display the red heart icon on the right */}
+    <FontAwesomeIcon icon={faHeart} className="ml-auto text-red-500" /> 
   </div>
 );
 
+const NewCardFooter=({budget,deadline})=>{
+  console.log(deadline)
+  const deadlineDate = deadline.toDate();
+  console.log(deadlineDate);
+  const currentDate = new Date();
+  const daysDifference = Math.floor((deadlineDate - currentDate) / (1000 * 60 * 60 * 24));
+
+  console.log(currentDate);
+  return (
+    <div className="flex justify-between">
+      <div className="text-sm" style={{ marginRight: '10px' }}>Budget:- ₹{budget}</div>
+      <div className="text-sm" style={{ marginLeft: '10px' }}>Deadline :- {daysDifference} days</div>
+    </div>
+  );
+  
+}
 function JobListing() {
   let navigate = useNavigate();
-
-  const list = [
-    {
-      title: "Craft a Comprehensive Case Study on Sensors and Actuators",
-      desc: "Seeking a skilled freelancer to conduct in-depth research and create a compelling case study exploring the intricate world of Sensors and Actuators.",
-      price: "Hourly $5-$10",
-      skills: "Electronics, Sensors, Actuators",
-      icon: faBook , 
-    },
-    {
-      title: "Develop an Informative PPT on AI-ML in Healthcare",
-      desc: "Looking for a talented freelancer to create a visually engaging PowerPoint presentation focused on the transformative impact of Artificial Intelligence and Machine Learning in the healthcare sector.",
-      price: "Hourly $3-$7",
-      skills: "AI, ML, Healthcare",
-      icon: faFileAlt, 
-    },
-    {
-      title: "Web Development",
-      desc: "Looking for a talented freelancer to create a backend for my Website.",
-      price: "Hourly $15-$20",
-      skills: "Django, Flask",
-      icon: faCode, 
-    },
-  ];
+  const [list, setList] = useState([]);
+  useEffect(()=>{
+    const fetchData = async () => {
+      const data = await getDocs(collection(db, "jobs"));
+      setList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    fetchData();
+  },[])
+  
 
   return (
     <Container>
@@ -64,31 +67,29 @@ function JobListing() {
             shadow="sm"
             key={index}
             isPressable
-            onPress={() =>navigate('/Jobpage')}
+            onPress={() => navigate('/Jobpage')}
             style={{
               marginTop: "20px",
               width: "700px",
               height: "250px",
               margin: "10px",
               padding: "20px",
-              backgroundImage: `url(${"images/orange.jpg"})`, 
+              backgroundImage: `url(${"images/orange.jpg"})`,
               backgroundSize: "cover",
             }}
           >
-            <CardHeader title={item.title} icon={item.icon} style={{ fontFamily: 'Times New Roman' }}></CardHeader>
+            <CardHeader title={item.jobTitle} icon={faBook} style={{ fontFamily: 'Times New Roman' }}></CardHeader>
 
             <CardBody className="overflow-visible p-0">
-            <p style={{ fontSize: "1.2rem" }}>{item.desc}</p>
-              <Chip color="success" className="mt-2">
-                {item.skills}
-              </Chip>
+              <p style={{ fontSize: "1.2rem" }}>{item.description}</p>
+              {
+                item.skills.map((skill, index) => (
+                  <Chip key={index} style={{ margin: "5px" }}>{skill}</Chip>
+                ))
+              }
             </CardBody>
 
-            <CardFooter>
-              <div className="flex justify-between">
-                <div className="text-sm">{item.price}</div>
-              </div>
-            </CardFooter>
+            <NewCardFooter budget={item.budget} deadline={item.deadline} />
           </Card>
         ))}
       </div>

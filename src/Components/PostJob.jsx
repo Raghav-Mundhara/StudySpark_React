@@ -67,16 +67,13 @@ const DeleteSkillsButton = styled(Button)`
 `;
 
 function PostJob() {
-    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [skills, setSkills] = useState(['']);
     const [jobTitle, setJobTitle] = useState('');
     const [description, setDescription] = useState('');
     const [budget, setBudget] = useState('');
     const [deadline, setDeadline] = useState('');
     
-    const handleDateChange = (date) => {
-        setDeadline(date);
-    };
 
     const handleAddSkillsField = () => {
         setSkills(prevSkills => [...prevSkills, '']);
@@ -106,6 +103,7 @@ function PostJob() {
             const user=auth.currentUser;
             const userEmail=user.email;
             await addDoc(collection(db,"jobs"),{
+                client:userEmail,
                 jobTitle:jobTitle,
                 description:description,
                 budget:budget,
@@ -113,6 +111,14 @@ function PostJob() {
                 email:userEmail,
                 skills:skills,
             });
+            alert("Job Posted Successfully")
+            selectedDate(new Date());
+            setSkills(['']);
+            setJobTitle('');
+            setDescription('');
+            setBudget('');
+            setDeadline('');
+
         } catch (error) {
             console.log(error+"onclick postjob");
         }
@@ -128,7 +134,6 @@ function PostJob() {
                     <StyledTextarea isRequired label="Description"  className="max-w-xs" onChange={(e)=>{
                         setDescription(e.target.value);
                     }}/>
-                    {/* <StyledInput isRequired label="Skills Required" className="max-w-xs" /> */}
                     <SkillsContainer>
                         {skills.map((skill, index) => (
                             <SkillRow key={index}>
@@ -160,7 +165,9 @@ function PostJob() {
                         <DeadlineLabel>Deadline</DeadlineLabel>
                         <DatePicker
                             selected={selectedDate}
-                            onChange={handleDateChange}
+                            onChange={(date)=>{
+                                setSelectedDate(date);
+                            }}
                             dateFormat="dd-MM-yyyy"
                             className="max-w-xs"
                             required
