@@ -9,6 +9,7 @@ import { Chip } from '@nextui-org/react';
 import { Textarea } from '@nextui-org/react';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import Header1 from './Header1';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -75,20 +76,8 @@ const Profile = () => {
   }, [skills]);
   return (
     <ProfileContainer>
-      <Header>
-        <Button
-          color="primary"
-          auto
-          endContent={<UserIcon size={24} />}
-          onClick={() => {
-            auth.signOut();
-            navigate("/");
-          }}
-        >
-          Logout
-        </Button>
-      </Header>
-
+      <Header1></Header1>
+      <br />
       <ContentContainer>
         <Card
           className="min-w-full max-w-2xl"

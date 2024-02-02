@@ -5,12 +5,15 @@ import { Button } from '@nextui-org/react';
 import {Chip} from "@nextui-org/react";
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
 import {Divider} from "@nextui-org/react";
+import Header1 from './Header1';
 const ServiceContainer = styled.div`
-  text-align: center;
-  padding: 40px;
-  margin-top: 40px;
-  background-color: black; 
-  color: #fff;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+margin: auto;
+align-items: center;
+justify-content: center;
+background-color: black;
 `;
 
 const ServiceTitle = styled.h2`
@@ -56,11 +59,14 @@ const Rating = styled.div`
 const ClientName = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
+  color:white;
 `;
 
 const ReviewContent = styled.div`
   font-size: 16px;
   text-align: left; 
+  color:white;
+
 `;
 
 
@@ -90,6 +96,7 @@ const SkillsText = styled.p`
   font-size: 20px;
   margin-right: 8px;
   text-align:left;
+  color: white;
 `;
 
 const WhiteText = styled.p`
@@ -114,6 +121,7 @@ const JobPage = () => {
   
   return (
     <ServiceContainer>
+      <Header1></Header1>
       <Card className="max-w-[400px]" style={{ backgroundColor: '#1f1f1f'}}>
 <CardHeader className="flex gap-3">
   
@@ -168,7 +176,7 @@ const JobPage = () => {
 </CardFooter>
 </Card>
 <br/>
-<SkillsText>
+<SkillsText >
   Skills & Expertise :
 </SkillsText>
       <SkillsContainer>
@@ -194,11 +202,9 @@ const JobPage = () => {
 
   <ServiceDescription>
     <WhiteText>
-   
     </WhiteText>
   </ServiceDescription>
-          </p>
-      
+      </p>
     </div>
   </CardHeader>
   <CustomDivider/>
@@ -211,8 +217,8 @@ const JobPage = () => {
 
         <ServiceList>
           <WhiteText>
-          <ServiceListItem>1. Total Amount: </ServiceListItem>
-          <ServiceListItem>2. Service Tax: </ServiceListItem>
+          <ServiceListItem>1. Total Amount: $40</ServiceListItem>
+          <ServiceListItem>2. Service Tax: $4</ServiceListItem>
           
           
           </WhiteText>
@@ -223,7 +229,7 @@ const JobPage = () => {
   <ServiceDescription>
         <WhiteText>
           <ol>
-            <li> Total Amount you will receive: </li>
+            <li> Total Amount you will receive:$36 </li>
             
           </ol>
           </WhiteText>

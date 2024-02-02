@@ -19,9 +19,7 @@ function App() {
         <Route path="/Jobpage" element={<JobPage/>}/>
         <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/joblisting" element={<JobListing/>} />
-        <Route path="/postjob" element={<PostJob/>} />
-        <Route path="/JobListing" element={<JobListing/>}/>
-  
+        <Route path="/postjob" element={<PostJob/>} />  
       </Routes>
     </BrowserRouter>
     </NextUIProvider>

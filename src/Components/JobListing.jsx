@@ -4,7 +4,8 @@ import Header1 from './Header1';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faFileAlt, faCode,faHeart } from '@fortawesome/free-solid-svg-icons'; 
-
+import {auth} from '../firebase.js';
+import { useNavigate } from 'react-router';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,6 +24,8 @@ const CardHeader = ({ title, icon }) => (
 );
 
 function JobListing() {
+  let navigate = useNavigate();
+
   const list = [
     {
       title: "Craft a Comprehensive Case Study on Sensors and Actuators",
@@ -61,7 +64,7 @@ function JobListing() {
             shadow="sm"
             key={index}
             isPressable
-            onPress={() => console.log("item pressed")}
+            onPress={() =>navigate('/Jobpage')}
             style={{
               marginTop: "20px",
               width: "700px",
@@ -71,8 +74,6 @@ function JobListing() {
               backgroundImage: `url(${"images/orange.jpg"})`, 
               backgroundSize: "cover",
             }}
-
-            
           >
             <CardHeader title={item.title} icon={item.icon} style={{ fontFamily: 'Times New Roman' }}></CardHeader>
 
