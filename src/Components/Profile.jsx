@@ -37,6 +37,7 @@ const Profile = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [userName, setUserName] = useState(null);
   const [userNumber, setUserNumber] = useState(null);
+  const [userProjects, setUserProjects] = useState([]);
   let navigate = useNavigate();
   const auth = getAuth();
   const [skills, setSkills] = useState([]);
@@ -63,6 +64,8 @@ const Profile = () => {
           console.log(temp);
           setSkills(temp);
           console.log(skills);
+          temp=docSnap.data().projects;
+          setUserProjects(temp);
         } else {
           console.log("No such document!");
         }
@@ -73,14 +76,20 @@ const Profile = () => {
   }, [userEmail]);
   useEffect(() => {
     console.log("Updated skills:", skills);
-  }, [skills]);
+    console.log("Updated projects:", userProjects);
+  }, [skills, userProjects]);
   return (
     <ProfileContainer>
       <Header1></Header1>
       <br />
       <ContentContainer>
         <Card
-          className="min-w-full max-w-2xl"
+          className="max-w-2xl"
+          style={{
+            margin: 'auto',
+            padding: '20px',
+            width: '90%',
+          }}
         >
           <CardHeader>
             <Avatar size="large" src="https://i.imgur.com/1Qd0R2D.jpg" />
@@ -152,32 +161,22 @@ const Profile = () => {
               >Projects</CardHeader>
               <CardBody>
                 <ul>
-                  <Textarea
-                    isReadOnly
-                    label="Project 1"
-                    variant="bordered"
-                    labelPlacement="outside"
-                    defaultValue="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
-                    className="max-w-5xl"
-                    />
-                    <br />
-                    <Textarea
+                  {
+                    userProjects.length === 0 ? (
+                      <li>Loading...</li>
+                    ) : 
+                      userProjects.map((project) => (
+                        <Textarea
                       isReadOnly
-                      label="Project 2"
+                      label={project.title}
                       variant="bordered"
                       labelPlacement="outside"
-                      defaultValue="Give a brief description of your project here."
+                      defaultValue={project.description}
                       className="max-w-5xl"
                     />
-                    <br />
-                    <Textarea
-                      isReadOnly
-                      label="Project 3"
-                      variant="bordered"
-                      labelPlacement="outside"
-                      defaultValue="Give a brief description of your project here."
-                      className="max-w-5xl"
-                    />
+                      )
+                    )
+                  }
                   </ul>
                 </CardBody>
               </Card>

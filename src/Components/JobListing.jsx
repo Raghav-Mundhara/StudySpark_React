@@ -1,10 +1,10 @@
-import React, { useEffect , useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardFooter, Chip, Image } from "@nextui-org/react";
 import Header1 from './Header1';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faFileAlt, faCode,faHeart } from '@fortawesome/free-solid-svg-icons'; 
-import {auth} from '../firebase.js';
+import { faBook, faFileAlt, faCode, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router';
 import { db } from '../firebase.js';
 import { collection, getDocs } from 'firebase/firestore';
@@ -18,14 +18,14 @@ const Container = styled.div`
   background-position: center;
 `;
 const CardHeader = ({ title, icon }) => (
-  <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold",fontFamily: 'Times New Roman' }}>
+  <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold", fontFamily: 'Times New Roman' }}>
     {icon && <FontAwesomeIcon icon={icon} className="mr-2" />}
     <span>{title}</span>
 
   </div>
 );
 
-const NewCardFooter=({budget,deadline})=>{
+const NewCardFooter = ({ budget, deadline }) => {
   const deadlineDate = deadline.toDate();
   const currentDate = new Date();
   const daysDifference = Math.floor((deadlineDate - currentDate) / (1000 * 60 * 60 * 24));
@@ -36,20 +36,20 @@ const NewCardFooter=({budget,deadline})=>{
       <div className="text-sm" style={{ marginLeft: '10px' }}>Deadline :- {daysDifference} days</div>
     </div>
   );
-  
+
 }
 function JobListing() {
   let navigate = useNavigate();
   const [list, setList] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     const fetchData = async () => {
       const data = await getDocs(collection(db, "jobs"));
       setList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     fetchData();
-  },[])
-  
+  }, [])
 
+  var colorList = ['success', 'danger', 'warning', 'secondary', 'primary'];
   return (
     <Container>
       <Header1 />
@@ -71,7 +71,6 @@ function JobListing() {
               height: "250px",
               margin: "10px",
               padding: "20px",
-              //backgroundColor: "rgba(255, 255, 255, 0.8)",
               backgroundColor: 'lightblue',
               backgroundSize: "cover",
             }}
@@ -80,13 +79,20 @@ function JobListing() {
 
             <CardBody className="overflow-visible p-0">
               <p style={{ fontSize: "1.2rem" }}>{item.description}</p>
-              {
-                item.skills.map((skill, index) => (
-                  <Chip key={index} style={{ margin: "5px" }}>{skill}</Chip>
-                ))
-              }
+              <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                <p style={{ fontSize: "1rem", margin: "0 5px 0 0" }}>Skills required:</p>
+                {item.skills.map((skill, index) => (
+                  <Chip
+                    color={colorList[index % colorList.length]}  // Use modulo to cycle through the colorList
+                    variant='shadow'
+                    key={index}
+                    style={{ margin: "5px" }}
+                  >
+                    {skill}
+                  </Chip>
+                ))}
+              </div>
             </CardBody>
-
             <NewCardFooter budget={item.budget} deadline={item.deadline} />
           </Card>
         ))}
