@@ -13,7 +13,7 @@ const RegisterContainer = styled.div`
     text-align: center;
     padding: 20px;
     margin: auto;
-    border: 1px solid #007bff;
+    // border: 1px solid #007bff;
     height: 100vh;
     display: flex;
     flex-direction: column;

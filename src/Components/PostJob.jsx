@@ -107,7 +107,7 @@ function PostJob() {
                 jobTitle:jobTitle,
                 description:description,
                 budget:budget,
-                deadline:deadline,
+                deadline:selectedDate,
                 email:userEmail,
                 skills:skills,
             });

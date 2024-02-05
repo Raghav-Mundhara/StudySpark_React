@@ -21,7 +21,6 @@ const CardHeader = ({ title, icon }) => (
   <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold", fontFamily: 'Times New Roman' }}>
     {icon && <FontAwesomeIcon icon={icon} className="mr-2" />}
     <span>{title}</span>
-
   </div>
 );
 
@@ -83,7 +82,7 @@ function JobListing() {
                 <p style={{ fontSize: "1rem", margin: "0 5px 0 0" }}>Skills required:</p>
                 {item.skills.map((skill, index) => (
                   <Chip
-                    color={colorList[index % colorList.length]}  // Use modulo to cycle through the colorList
+                    color={colorList[index % colorList.length]}
                     variant='shadow'
                     key={index}
                     style={{ margin: "5px" }}
