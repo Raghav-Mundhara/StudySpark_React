@@ -7,6 +7,9 @@ import JobPage from "./Components/JobPage.jsx";
 import JobListing from "./Components/JobListing.jsx";
 import PostJob from "./Components/PostJob.jsx";
 import EditProfile from "./Components/EditProfile.jsx";
+import JobPage from "./Components/JobPage.jsx";
+import JobListing from "./Components/JobListing.jsx";
+import MyOrders from "./Components/MyOrders.jsx";
 function App() {
   return (
     <NextUIProvider>
@@ -20,6 +23,10 @@ function App() {
         <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/joblisting" element={<JobListing/>} />
         <Route path="/postjob" element={<PostJob/>} />  
+        <Route path="/editprofile" element={<EditProfile/>} />
+        <Route path="/Jobpage" element={<JobPage/>}/>
+        <Route path="/JobListing" element={<JobListing/>}/>
+        <Route path="/MyOrders" element={<MyOrders/>}/>
       </Routes>
     </BrowserRouter>
     </NextUIProvider>
