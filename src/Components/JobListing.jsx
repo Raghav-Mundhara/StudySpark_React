@@ -35,8 +35,12 @@ const NewCardFooter = ({ budget, deadline }) => {
       <div className="text-sm" style={{ marginLeft: '10px' }}>Deadline :- {daysDifference} days</div>
     </div>
   );
-
 }
+
+function truncateDescription(description, maxLength) {
+  return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
+}
+
 function JobListing() {
   let navigate = useNavigate();
   const [list, setList] = useState([]);
@@ -63,7 +67,7 @@ function JobListing() {
             shadow="sm"
             key={index}
             isPressable
-            onPress={() => navigate('/Jobpage')}
+            onPress={() => navigate(`/Jobpage/${item.id}`)}
             style={{
               marginTop: "20px",
               width: "700px",
@@ -77,7 +81,15 @@ function JobListing() {
             <CardHeader title={item.jobTitle} icon={faBook} style={{ fontFamily: 'Times New Roman' }}></CardHeader>
 
             <CardBody className="overflow-visible p-0">
-              <p style={{ fontSize: "1.2rem" }}>{item.description}</p>
+              <div style={{ fontSize: "1.2rem" }}>
+                {truncateDescription(item.description, 100)}
+                {item.description.length > 100 && (
+                  <span>
+                    <button onClick={() => navigate(`/Jobpage/${item.id}`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
+                    {/* <span>...</span> */}
+                  </span>
+                )}
+              </div>
               <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
                 <p style={{ fontSize: "1rem", margin: "0 5px 0 0" }}>Skills required:</p>
                 {item.skills.map((skill, index) => (
@@ -92,6 +104,10 @@ function JobListing() {
                 ))}
               </div>
             </CardBody>
+
+
+
+
             <NewCardFooter budget={item.budget} deadline={item.deadline} />
           </Card>
         ))}
