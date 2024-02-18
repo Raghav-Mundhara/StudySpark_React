@@ -5,6 +5,8 @@ import {NextUIProvider} from "@nextui-org/react";
 import Profile from "./Components/Profile.jsx";
 import JobPage from "./Components/JobPage.jsx";
 import JobListing from "./Components/JobListing.jsx";
+import PostJob from "./Components/PostJob.jsx";
+import EditProfile from "./Components/EditProfile.jsx";
 function App() {
   return (
     <NextUIProvider>
@@ -14,8 +16,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile/>} />
-        <Route path="/Jobpage" element={<JobPage/>}/>
-        <Route path="/JobListing" element={<JobListing/>}/>
+        <Route path="/Jobpage/:id" element={<JobPage/>}/>
+        <Route path="/editprofile" element={<EditProfile/>} />
+        <Route path="/joblisting" element={<JobListing/>} />
+        <Route path="/postjob" element={<PostJob/>} />  
       </Routes>
     </BrowserRouter>
     </NextUIProvider>

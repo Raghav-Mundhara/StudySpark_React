@@ -10,7 +10,7 @@ const LoginContainer = styled.div`
     text-align: center;
     padding: 20px;
     margin: auto;
-    border: 1px solid #007bff;
+    // border: 1px solid #007bff;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -57,14 +57,14 @@ export default function Login() {
     const [password, setPassword] = React.useState('');
     let navigate = useNavigate();
 
-    const Register = (e) => {
+    const SignIn = (e) => {
         e.preventDefault();
         console.log(email, password)
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
-                navigate('/profile');
+                navigate('/joblisting');
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -76,7 +76,7 @@ export default function Login() {
     return (
         <LoginContainer>
             <Title>Login</Title>
-            <LoginForm onSubmit={Register}>
+            <LoginForm onSubmit={SignIn}>
                 <StyledInput
                     type="email"
                     label="Email"
