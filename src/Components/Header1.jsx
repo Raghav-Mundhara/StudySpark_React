@@ -77,7 +77,8 @@ function Header1() {
                                 {currentUser ? currentUser.email : 'Loading...'}
                             </p>
                         </DropdownItem>
-                        <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+                        <DropdownItem key="my_order">My Orders</DropdownItem>
+                        <DropdownItem key="work">My Work</DropdownItem>
                         <DropdownItem key="logout" color="danger" onClick={
                             () => {
                                 auth.signOut();
