@@ -7,6 +7,7 @@ import JobPage from "./Components/JobPage.jsx";
 import JobListing from "./Components/JobListing.jsx";
 import PostJob from "./Components/PostJob.jsx";
 import EditProfile from "./Components/EditProfile.jsx";
+import Home from "./Components/Home.jsx";
 function App() {
   return (
     <NextUIProvider>
@@ -20,6 +21,8 @@ function App() {
         <Route path="/editprofile" element={<EditProfile/>} />
         <Route path="/joblisting" element={<JobListing/>} />
         <Route path="/postjob" element={<PostJob/>} />  
+        <Route path="/home" element={<Home/>} />  
+       
       </Routes>
     </BrowserRouter>
     </NextUIProvider>
