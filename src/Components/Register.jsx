@@ -13,7 +13,7 @@ const RegisterContainer = styled.div`
     text-align: center;
     padding: 20px;
     margin: auto;
-    border: 1px solid #007bff;
+    // border: 1px solid #007bff;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -79,6 +79,17 @@ export default function Register() {
         { id: 8, name: 'JavaScript' },
         { id: 9, name: 'Node.js' },
         { id: 10, name: 'Express.js' },
+        { id: 11, name: 'MongoDB' },
+        { id: 12, name: 'SQL' },
+        { id: 13, name: 'Excel' },
+        { id: 14, name: 'Dart' },
+        { id: 15, name: 'Flutter' },
+        { id: 16, name: 'Kotlin' },
+        { id: 17, name: 'Swift' },
+        { id: 18, name: 'PPT' },
+        { id: 19, name: 'Word' },
+        { id: 20, name: 'Spreadsheet' },
+        { id: 21, name: 'Doc' },
     ]
     useEffect(() => {
         console.log(selectedSkills)
@@ -95,7 +106,7 @@ export default function Register() {
                 console.log(skill);
                 newListOfSkills.push(skill);
             })
-            await setDoc(doc(db, "users",email), {
+            await setDoc(doc(db, "users", email), {
                 name: name,
                 email: email,
                 phone: phone,
@@ -150,7 +161,6 @@ export default function Register() {
                         onSelectionChange={
                             setSelectedSkills
                         }
-                    // onClick={(e) => {console.log(e)}}
                     >
                         {listSkills.map((skill) => (
                             <SelectItem key={skill.name} value={skill.name} >

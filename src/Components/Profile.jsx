@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Card, CardHeader, CardBody, CardFooter, Avatar, Button, Divider } from "@nextui-org/react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -8,6 +9,7 @@ import { Chip } from '@nextui-org/react';
 import { Textarea } from '@nextui-org/react';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import Header1 from './Header1';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -35,6 +37,7 @@ const Profile = () => {
   const [userEmail, setUserEmail] = useState(null);
   const [userName, setUserName] = useState(null);
   const [userNumber, setUserNumber] = useState(null);
+  const [userProjects, setUserProjects] = useState([]);
   let navigate = useNavigate();
   const auth = getAuth();
   const [skills, setSkills] = useState([]);
@@ -61,6 +64,8 @@ const Profile = () => {
           console.log(temp);
           setSkills(temp);
           console.log(skills);
+          temp=docSnap.data().projects;
+          setUserProjects(temp);
         } else {
           console.log("No such document!");
         }
@@ -71,26 +76,20 @@ const Profile = () => {
   }, [userEmail]);
   useEffect(() => {
     console.log("Updated skills:", skills);
-  }, [skills]);
+    console.log("Updated projects:", userProjects);
+  }, [skills, userProjects]);
   return (
     <ProfileContainer>
-      <Header>
-        <Button
-          color="primary"
-          auto
-          endContent={<UserIcon size={24} />}
-          onClick={() => {
-            auth.signOut();
-            navigate("/");
-          }}
-        >
-          Logout
-        </Button>
-      </Header>
-
+      <Header1></Header1>
+      <br />
       <ContentContainer>
         <Card
-          className="min-w-full max-w-2xl"
+          className="max-w-2xl"
+          style={{
+            margin: 'auto',
+            padding: '20px',
+            width: '90%',
+          }}
         >
           <CardHeader>
             <Avatar size="large" src="https://i.imgur.com/1Qd0R2D.jpg" />
@@ -162,44 +161,35 @@ const Profile = () => {
               >Projects</CardHeader>
               <CardBody>
                 <ul>
-                  <Textarea
-                    isReadOnly
-                    label="Project 1"
-                    variant="bordered"
-                    labelPlacement="outside"
-                    defaultValue="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
-                    className="max-w-5xl"
-                  />
-                  <br />
-                  <Textarea
-                    isReadOnly
-                    label="Project 2"
-                    variant="bordered"
-                    labelPlacement="outside"
-                    defaultValue="Give a brief description of your project here."
-                    className="max-w-5xl"
-                  />
-                  <br />
-                  <Textarea
-                    isReadOnly
-                    label="Project 3"
-                    variant="bordered"
-                    labelPlacement="outside"
-                    defaultValue="Give a brief description of your project here."
-                    className="max-w-5xl"
-                  />
-                </ul>
-              </CardBody>
-            </Card>
-          </CardBody>
-          <CardFooter>
-            <Button color="success">Edit Profile</Button>
-          </CardFooter>
-        </Card>
-      </ContentContainer>
-      <br />
-    </ProfileContainer>
-  );
-};
-
-export default Profile;
+                  {
+                    userProjects.length === 0 ? (
+                      <li>Loading...</li>
+                    ) : 
+                      userProjects.map((project) => (
+                        <Textarea
+                      isReadOnly
+                      label={project.title}
+                      variant="bordered"
+                      labelPlacement="outside"
+                      defaultValue={project.description}
+                      className="max-w-5xl"
+                    />
+                      )
+                    )
+                  }
+                  </ul>
+                </CardBody>
+              </Card>
+            </CardBody>
+            <CardFooter>
+            <Link to="/editprofile"><Button color="success">Edit Profile</Button></Link>
+            </CardFooter>
+          </Card>
+        </ContentContainer>
+        <br />
+      </ProfileContainer>
+    );
+  };
+  
+  export default Profile;
+  
