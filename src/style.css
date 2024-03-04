@@ -1,111 +1,53 @@
-/* Reset styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Main layout styles */
-  .app {
-    display: flex;
-    height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121d25; /* Darker background for the entire app */
-    color: #e1e1e1; /* Lighter text color for readability */
-  }
-  
-  .contacts-sidebar {
-    width: 35%;
-    max-width: 350px;
-    background-color: #2c3e50; /* Darker sidebar background */
-    overflow-y: auto;
-    color: #e1e1e1; /* Ensuring text is visible against the dark background */
-  }
-  
-  .chat-window {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #34495e; /* Darker chat window background */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Contacts sidebar styles */
-  .contact {
-    padding: 20px;
-    cursor: pointer;
-    border-bottom: 1px solid #7f8c8d; /* Visible border in dark mode */
-  }
-  
-  .contact:hover {
-    background-color: #3d5466; /* Slightly lighter on hover for contrast */
-  }
-  
-  /* Chat window styles */
-  .chat-window h2 {
-    padding: 20px;
-    background-color: #16a085; /* Vibrant color for header */
-    color: white;
-    margin: 0;
-  }
-  
-  .chat-window form {
-    margin-top: auto;
-    padding: 20px;
-    background-color: #2c3e50; /* Darker form background */
-    display: flex;
-    gap: 10px;
-  }
-  
-  .chat-window input[type="text"], .chat-window input[type="file"] {
-    flex-grow: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-  }
-  
-  .chat-window button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: #00bfa5; /* Adjusted to match the theme */
-    color: white;
-  }
-  
-  .chat-window button:hover {
-    background-color: #00796b; /* Darker shade on hover */
-  }
-  
-  .buttons-container {
-    display: flex;
-    gap: 10px; /* Space between buttons */
-    margin-top: 20px; /* Space from chat content to buttons */
-  }
-  
-  .file-action-button {
-    background-color: #16a085; /* Accent color for action button */
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-    display: inline-block; /* Keeps the button inline */
-  }
-  
-  .file-action-button:hover {
-    background-color: #13856b; /* Darker shade for hover effect */
-  }
-  
-  .chat-actions {
-    display: flex;
-    gap: 10px; /* Adjust the gap between actions */
-    align-items: center; /* Vertically center the items */
-  }
-  
+/* Add these styles to your CSS file (e.g., ContactWindow.css) */
+
+.chat-window {
+  max-width: 400px;
+  margin: auto;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-window h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.chat-content {
+  margin-top: 10px;
+}
+
+.file-action-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.file-action-button:hover {
+  background-color: #45a049;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
