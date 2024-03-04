@@ -7,7 +7,8 @@ import JobPage from "./Components/JobPage.jsx";
 import JobListing from "./Components/JobListing.jsx";
 import PostJob from "./Components/PostJob.jsx";
 import EditProfile from "./Components/EditProfile.jsx";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import MyOrders from "./Components/MyOrders.jsx";
 function App() {
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
             <Route path="/editprofile" element={<EditProfile />} />
             <Route path="/joblisting" element={<JobListing />} />
             <Route path="/postjob" element={<PostJob />} />
+            <Route path="/myorders" element={<MyOrders />} />
           </Routes>
         </BrowserRouter>
       </NextUIProvider>

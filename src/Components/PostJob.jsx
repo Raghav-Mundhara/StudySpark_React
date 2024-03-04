@@ -111,18 +111,18 @@ function PostJob() {
     const handleBugetChange = (e) => {
         var today = new Date();
         var days = Math.ceil(Math.abs(selectedDate - today) / 1000 / 60 / 60 / 24);
-        const data={
-            no_of_pages:noofpages,
-            days:days,
-            service:selectedOptionValue
+        const data = {
+            no_of_pages: noofpages,
+            days: days,
+            service: selectedOptionValue
         }
-        axios.post('http://127.0.0.1:5000/getPrice',data)
-        .then((res)=>{
-            setBudget(res.data.price);
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+        axios.post('http://127.0.0.1:5000/getPrice', data)
+            .then((res) => {
+                setBudget(res.data.price);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         console.log(budget)
     };
     // Add a useEffect to log the updated skills after each render
@@ -193,19 +193,27 @@ function PostJob() {
                             Add Skills Field
                         </AddSkillsButton>
                     </AddSkillsButtonContainer>
-                    <p
-                        style={{
-                            color: 'white',
-                            marginBottom: '10px'
-                        }}
-                    >Price  : {budget}</p>
-                    <Button
-                        color='warning'
-                        onClick={handleBugetChange}
-                    >
-                        Get Price
-                    </Button>
-                    <ButtonGroup variant="flat" style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginBottom: '10px',  padding: '5px' }}>
+                        <Button
+                            color='warning'
+                            onClick={handleBugetChange}
+                            style={{ marginRight: '10px' }} // Added margin to the button
+                        >
+                            Get Price
+                        </Button>
+                        <p
+                            style={{
+                                color: 'white',
+                                marginLeft: '10px' // Adding margin to create space between elements
+                            }}
+                        >
+                            Price: {budget}
+                        </p>
+                    </div>
+
+                    <div style={{display:'flex',alignItems:'center' }}>
+                    <label style={{ color: 'white' }}>Select Service</label>
+                        <ButtonGroup variant="flat" style={{ display: 'flex', justifyContent: 'center', marginLeft:'10px' }}>
                         <Button>{labelsMap[selectedOptionValue]}</Button>
                         <Dropdown placement="bottom-end">
                             <DropdownTrigger>
@@ -245,7 +253,11 @@ function PostJob() {
                             </DropdownMenu>
                         </Dropdown>
                     </ButtonGroup>
-                    <DeadlineContainer>
+                    </div>
+
+                    <DeadlineContainer style={{
+                        marginTop: '10px'
+                    }}>
                         <DeadlineLabel>Deadline</DeadlineLabel>
                         <DatePicker
                             selected={selectedDate}
