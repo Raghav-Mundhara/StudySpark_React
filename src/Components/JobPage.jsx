@@ -8,7 +8,7 @@ import { Divider } from "@nextui-org/react";
 import Header1 from './Header1';
 import { useParams } from 'react-router-dom';
 import { auth, db } from '../firebase.js';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 
 const ServiceContainer = styled.div`
@@ -98,6 +98,18 @@ const JobPage = () => {
   const params = useParams();
   const [list, setList] = useState([]);
 
+  const handleOnAcceptClick = async () => {
+    try {
+      await updateDoc(doc(db, 'jobs', params.id), {
+        status: 'Assigned',
+        freelancer: auth.currentUser.email
+      });
+      alert('Job Accepted!');
+    } catch (error) {
+      alert(error.message);
+    }
+
+  };
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -236,7 +248,7 @@ const JobPage = () => {
       {/* <Pricing>Price: {price}</Pricing> */}
 
 
-      <Button color='success' >Accept Offer</Button>
+      <Button color='success' onClick={handleOnAcceptClick}>Accept Offer</Button>
       <br />
     </ServiceContainer>
   );
