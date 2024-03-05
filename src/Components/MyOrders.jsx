@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardBody, CardFooter, Chip, Image } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, Chip, Image } from "@nextui-org/react";
 import Header1 from './Header1';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -56,11 +56,6 @@ function MyOrders() {
         fetchData();
     }, []);
 
-    const handleButtonClick = (orderId, status) => {
-        // Handle button click, you can implement functionality like changing order status here
-        console.log(`Order ${ orderId } status changed to ${ status }`);
-    };
-
     var colorList = ['success', 'danger', 'warning', 'secondary', 'primary'];
     return (
         <Container>
@@ -85,9 +80,10 @@ function MyOrders() {
                             padding: "20px",
                             backgroundColor: 'lightblue',
                             backgroundSize: "cover",
+                            position: 'relative',
                         }}
                     >
-                        <CardHeader title={item.jobTitle} icon={faBook} style={{ fontFamily: 'Times New Roman' }} />
+                        <CardHeader title={item.jobTitle} icon={faBook} style={{ fontFamily: 'Times New Roman' , height:'fit-content' }} />
                         <CardBody className="overflow-visible p-0">
                             <div style={{ fontSize: "1.2rem" }}>
                                 {truncateDescription(item.description, 100)}
@@ -97,7 +93,7 @@ function MyOrders() {
                                     </span>
                                 )}
                             </div>
-                            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", marginTop: '10px' }}>
                                 <p style={{ fontSize: "1rem", margin: "0 5px 0 0" }}>Skills required:</p>
                                 {item.skills.map((skill, index) => (
                                     <Chip
@@ -111,11 +107,14 @@ function MyOrders() {
                                 ))}
                             </div>
                         </CardBody>
-                        <NewCardFooter budget={item.budget} deadline={item.deadline} />
-                        <CardFooter>
-                            <button onClick={() => handleButtonClick(item.id, 'unassigned')}>Unassigned</button>
-                            <button onClick={() => handleButtonClick(item.id, 'assigned')}>Assigned</button>
-                            <button onClick={() => handleButtonClick(item.id, 'done')}>Done</button>
+                        <CardFooter style={{ 
+                            position: 'absolute',
+                            bottom: '10px',
+                            left: `calc(70% - 10px)`
+                        }}>
+                            <Chip color="danger">
+                                Unassigned
+                            </Chip>
                         </CardFooter>
                     </Card>
                 ))}

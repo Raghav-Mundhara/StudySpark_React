@@ -77,7 +77,9 @@ function Header1() {
                                 {currentUser ? currentUser.email : 'Loading...'}
                             </p>
                         </DropdownItem>
-                        <DropdownItem key="my_order">My Orders</DropdownItem>
+                        <DropdownItem key="my_order"
+                            onClick={() => navigate('/myorders')}
+                        >My Orders</DropdownItem>
                         <DropdownItem key="work">My Work</DropdownItem>
                         <DropdownItem key="logout" color="danger" onClick={
                             () => {
