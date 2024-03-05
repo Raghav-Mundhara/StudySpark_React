@@ -109,8 +109,9 @@ export default function Register() {
             await setDoc(doc(db, "users", email), {
                 name: name,
                 email: email,
-                phone: phone,
+                phoneNumber: phone,
                 skills: newListOfSkills,
+                projests: [],
             });
             updateProfile(auth.currentUser, {
                 displayName: name,
