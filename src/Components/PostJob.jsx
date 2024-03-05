@@ -132,20 +132,20 @@ function PostJob() {
 
     const onClick = async () => {
         try {
-            // const user = auth.currentUser;
-            // const userEmail = user.email;
-            // await addDoc(collection(db, "jobs"), {
-            //     client: userEmail,
-            //     jobTitle: jobTitle,
-            //     description: description,
-            //     budget: budget,
-            //     deadline: selectedDate,
-            //     email: userEmail,
-            //     skills: skills,
-            //     service: selectedOptionValue
-            // });
+            const user = auth.currentUser;
+            const userEmail = user.email;
+            await addDoc(collection(db, "jobs"), {
+                client: userEmail,
+                jobTitle: jobTitle,
+                description: description,
+                budget: budget,
+                deadline: selectedDate,
+                email: userEmail,
+                skills: skills,
+                service: selectedOptionValue
+            });
             alert("Job Posted Successfully")
-            selectedDate(new Date());
+            setSelectedDate(new Date());
             setSkills(['']);
             setJobTitle('');
             setDescription('');

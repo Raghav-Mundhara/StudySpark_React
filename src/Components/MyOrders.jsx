@@ -47,15 +47,28 @@ function truncateDescription(description, maxLength) {
 function MyOrders() {
     let navigate = useNavigate();
     const [list, setList] = useState([]);
-
+    const user= auth.currentUser;
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getDocs(collection(db, "jobs"));
-            setList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            if (user) {
+                const querySnapshot = await getDocs(collection(db, "jobs"));
+                let temp = [];
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.data()['email']);
+                    if (doc.data()['email'] === user.email) {
+                        temp.push({ ...doc.data(), id: doc.id });
+                    }
+                });
+                setList(temp);
+            }
         };
         fetchData();
-    }, []);
+    }, [user]);
+    
 
+    useEffect(() => {
+        console.log(list);
+    }, [list]);
     var colorList = ['success', 'danger', 'warning', 'secondary', 'primary'];
     return (
         <Container>
