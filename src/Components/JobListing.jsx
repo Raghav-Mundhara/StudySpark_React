@@ -16,7 +16,9 @@ const Container = styled.div`
   background-color: #000000;
   background-size: cover;
   background-position: center;
-`;
+  background-image: url('/images/man.avif');
+
+  `;
 const CardHeader = ({ title, icon }) => (
   <div className="text-lg font-semibold mb-2 flex items-center" style={{ fontSize: "1.5rem", fontWeight: "bold", fontFamily: 'Times New Roman' }}>
     {icon && <FontAwesomeIcon icon={icon} className="mr-2" />}

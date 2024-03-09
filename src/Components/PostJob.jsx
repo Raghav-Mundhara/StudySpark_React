@@ -16,7 +16,9 @@ const Container = styled.div`
     margin: auto;
     align-items: center;
     justify-content: center;
-    background-color: black;
+    background-color: #000000;
+    //background-image: url('/images/man.avif');
+
 `;
 
 const StyledInput = styled(Input)`
