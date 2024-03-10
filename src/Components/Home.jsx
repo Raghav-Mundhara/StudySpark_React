@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../style.css';
-import ContactsSidebar from './Sidebar.jsx';
+import Sidebar from './Sidebar';
 import ContactWindow from './Contactwindow.jsx';
+
 
 const dummyContacts = [
   { email: ' ' },
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div className="app">
-      {/* <ContactsSidebar contacts={dummyContacts} onSelectContact={handleSelectContact} /> */}
+      <Sidebar contacts={dummyContacts} onSelectContact={handleSelectContact} />
       <ContactWindow activeContact={selectedContact} />
     </div>
   );

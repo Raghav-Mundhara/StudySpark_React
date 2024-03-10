@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react'; // Ensure useState is imported
+import { auth, db } from '../firebase';
 import {
   ref,
   uploadBytes,
@@ -23,6 +24,59 @@ const ContactWindow = ({ activeContact }) => {
       });
     });
   };
+
+
+  const loadRazorpay = () => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onerror = () => alert('Razorpay SDK failed to load. Are you online?');
+    script.onload = async () => {
+      // Fetch the amount from Firestore
+      try {
+        const userId = 'your_user_id'; // Replace with the actual user ID or any identifier you use
+        const userDoc = await db.collection('users').doc(userId).get();
+        const userData = userDoc.data();
+  
+        if (userData) {
+          const amount = userData.budget || 50000; // Default to 50000 if budget is not available
+  
+          const paymentData = {
+            key: "rzp_test_EqmTf7cyKE7Dal",
+            amount: amount.toString(),
+            currency: "INR",
+            name: "Payment for Services",
+            description: "Test Transaction",
+            image: "https://example.com/your_logo",
+            handler: function (response) {
+              alert(response.razorpay_payment_id);
+            },
+            prefill: {
+              name: "Customer Name",
+              email: "customer_email@example.com",
+              contact: "9999999999"
+            },
+            notes: {
+              address: "Razorpay Corporate Office"
+            },
+            theme: {
+              color: "#3399cc"
+            }
+          };
+  
+          const paymentObject = new window.Razorpay(paymentData);
+          paymentObject.open();
+        } else {
+          console.error("User data not found");
+        }
+      } catch (error) {
+        console.error("Error fetching amount from Firestore:", error);
+      }
+    };
+    document.body.appendChild(script);
+  };
+  
+
+  
 
   useEffect(() => {
     listAll(imagesListRef).then((response) => {
@@ -84,7 +138,7 @@ const ContactWindow = ({ activeContact }) => {
         {imageUrls.map((url) => {
         return <img src={url} />;
       })}
-        <button >Pay</button>
+        <button onClick={loadRazorpay}>Pay</button>
       </div>
     </div>
   );
