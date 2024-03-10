@@ -26,102 +26,53 @@ const ContactWindow = ({ activeContact }) => {
   };
 
 
-  const loadRazorpay = () => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.onerror = () => alert('Razorpay SDK failed to load. Are you online?');
-    script.onload = async () => {
-      // Fetch the amount from Firestore
-      try {
-        const userId = 'your_user_id'; // Replace with the actual user ID or any identifier you use
-        const userDoc = await db.collection('users').doc(userId).get();
-        const userData = userDoc.data();
-  
-        if (userData) {
-          const amount = userData.budget || 50000; // Default to 50000 if budget is not available
-  
-          const paymentData = {
-            key: "rzp_test_EqmTf7cyKE7Dal",
-            amount: amount.toString(),
-            currency: "INR",
-            name: "Payment for Services",
-            description: "Test Transaction",
-            image: "https://example.com/your_logo",
-            handler: function (response) {
-              alert(response.razorpay_payment_id);
-            },
-            prefill: {
-              name: "Customer Name",
-              email: "customer_email@example.com",
-              contact: "9999999999"
-            },
-            notes: {
-              address: "Razorpay Corporate Office"
-            },
-            theme: {
-              color: "#3399cc"
-            }
-          };
-  
-          const paymentObject = new window.Razorpay(paymentData);
-          paymentObject.open();
-        } else {
-          console.error("User data not found");
-        }
-      } catch (error) {
-        console.error("Error fetching amount from Firestore:", error);
+
+
+const loadRazorpay = () => {
+  const script = document.createElement('script');
+  script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+  script.onerror = () => alert('Razorpay SDK failed to load. Are you online?');
+  script.onload = () => {
+    // Display a prompt to get the amount from the user
+    const amountInput = prompt('Enter the amount to pay (in INR):');
+    
+    // Check if the user entered a valid amount
+    const amount = parseFloat(amountInput);
+    if (isNaN(amount) || amount <= 0) {
+      alert('Invalid amount. Please enter a valid positive number.');
+      return;
+    }
+
+    const paymentData = {
+      key: "rzp_test_EqmTf7cyKE7Dal",
+      amount: (amount * 100).toString(), 
+      currency: "INR",
+      name: "Payment for Services",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+      },
+      prefill: {
+        name: "Customer Name",
+        email: "customer_email@example.com",
+        contact: "9999999999"
+      },
+      notes: {
+        address: "Razorpay Corporate Office"
+      },
+      theme: {
+        color: "#3399cc"
       }
     };
-    document.body.appendChild(script);
+
+    const paymentObject = new window.Razorpay(paymentData);
+    paymentObject.open();
   };
-  
+  document.body.appendChild(script);
+};
 
-  
 
-  useEffect(() => {
-    listAll(imagesListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, []);
-  // const [uploadedFiles, setUploadedFiles] = useState([]);
-
-  // const handleFileChange = async (event) => {
-  //   const file = event.target.files[0];
-  //   if (!file) {
-  //     alert('No file selected!');
-  //     return;
-  //   }
-
-  //   // Simulate the upload process
-  //   setUploadedFiles(prevFiles => [...prevFiles, file]);
-  //   alert('File uploaded: ' + file.name);
-
-  //   // Reset the file input after upload
-  //   event.target.value = '';
-  // };
-
-  // const handlePayment = () => { // Ensure handlePayment is defined
-  //   alert('Payment functionality to be implemented.');
-  // };
-
-  // const handleDelete = (fileName) => { // Define a method to handle file deletion
-  //   setUploadedFiles(uploadedFiles.filter(file => file.name !== fileName));
-  // };
-
-  // const handleAccept = (fileName) => { // Example accept function
-  //   alert(`${fileName} accepted`);
-  //   // Implement acceptance logic here
-  // };
-
-  // const handleReject = (fileName) => { // Example reject function
-  //   alert(`${fileName} rejected`);
-  //   // Here you could simply delete the file or move it to a 'rejected' list
-  //   handleDelete(fileName); // For simplicity, we'll just delete it
-  // };
 
   return (
     <div className="chat-window">
