@@ -7,30 +7,25 @@ import JobPage from "./Components/JobPage.jsx";
 import JobListing from "./Components/JobListing.jsx";
 import PostJob from "./Components/PostJob.jsx";
 import EditProfile from "./Components/EditProfile.jsx";
-import { SpeedInsights } from "@vercel/speed-insights/react";
-import MyOrders from "./Components/MyOrders.jsx";
-import MyWorks from "./Components/MyWork.jsx";
+import Home from "./Components/Home.jsx";
 function App() {
   return (
-    <div>
-      <SpeedInsights />
-      <NextUIProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/Jobpage/:id" element={<JobPage />} />
-            <Route path="/editprofile" element={<EditProfile />} />
-            <Route path="/joblisting" element={<JobListing />} />
-            <Route path="/postjob" element={<PostJob />} />
-            <Route path="/myorders" element={<MyOrders />} />
-            <Route path="/myworks" element={<MyWorks />} />
-          </Routes>
-        </BrowserRouter>
-      </NextUIProvider>
-    </div>
+    <NextUIProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile/>} />
+        <Route path="/Jobpage/:id" element={<JobPage/>}/>
+        <Route path="/editprofile" element={<EditProfile/>} />
+        <Route path="/joblisting" element={<JobListing/>} />
+        <Route path="/postjob" element={<PostJob/>} />  
+        <Route path="/home" element={<Home/>} />  
+       
+      </Routes>
+    </BrowserRouter>
+    </NextUIProvider>
   );
 }
 
