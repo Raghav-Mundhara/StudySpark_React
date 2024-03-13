@@ -44,7 +44,7 @@ function truncateDescription(description, maxLength) {
     return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
 }
 
-function MyOrders() {
+function MyWorks() {
     let navigate = useNavigate();
     const [list, setList] = useState([]);
     const user= auth.currentUser;
@@ -54,8 +54,8 @@ function MyOrders() {
                 const querySnapshot = await getDocs(collection(db, "jobs"));
                 let temp = [];
                 querySnapshot.forEach((doc) => {
-                    console.log(doc.data()['email']);
-                    if (doc.data()['email'] === user.email) {
+                    // console.log(doc.data()['email']);
+                    if (doc.data()['freelancer'] === user.email) {
                         temp.push({ ...doc.data(), id: doc.id });
                     }
                 });
@@ -79,7 +79,7 @@ function MyOrders() {
                     margin: "auto",
                 }}
             >
-                {list.map((item, index) => (
+                {list.map((item, index) =>(
                     <Card
                         shadow="sm"
                         key={index}
@@ -136,4 +136,4 @@ function MyOrders() {
     );
 }
 
-export default MyOrders;
+export default MyWorks;

@@ -80,7 +80,9 @@ function Header1() {
                         <DropdownItem key="my_order"
                             onClick={() => navigate('/myorders')}
                         >My Orders</DropdownItem>
-                        <DropdownItem key="work">My Work</DropdownItem>
+                        <DropdownItem key="work" 
+                            onClick={() => navigate('/myworks')}
+                        >My Work</DropdownItem>
                         <DropdownItem key="logout" color="danger" onClick={
                             () => {
                                 auth.signOut();
