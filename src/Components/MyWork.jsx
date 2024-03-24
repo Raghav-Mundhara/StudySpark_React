@@ -83,7 +83,7 @@ function MyWorks() {
                         shadow="sm"
                         key={index}
                         isPressable
-                        onPress={() => navigate(`/chat/${item.freelancer}/${item.client}`)}
+                        onPress={() => navigate(`/chat/${item.id}/${item.freelancer}/${item.client}`)}
                         style={{
                             marginTop: "20px",
                             width: "700px",
@@ -101,7 +101,7 @@ function MyWorks() {
                                 {truncateDescription(item.description, 100)}
                                 {item.description.length > 100 && (
                                     <span>
-                                        <button onClick={() => navigate(`/chat/${item.freelancer}/${item.client}`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
+                                        <button onClick={() => navigate(`/chat/${item.id}/${item.freelancer}/${item.client}`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
                                     </span>
                                 )}
                             </div>

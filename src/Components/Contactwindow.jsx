@@ -9,8 +9,9 @@ import { storage } from "../firebase";
 import { v4 } from "uuid";
 import "../style.css";
 import { useParams } from 'react-router-dom';
-import { getFirestore } from 'firebase/firestore';
+import { addDoc, getFirestore, updateDoc , doc } from 'firebase/firestore';
 import { getDocs, collection } from 'firebase/firestore';
+import { debounce } from 'lodash';
 // import { db } from '../firebase';
 const ContactWindow = () => {
   const params = useParams();
@@ -23,7 +24,27 @@ const ContactWindow = () => {
   const chatId = users[0] + users[1];
   const db=getFirestore();
   
-
+  useEffect(() => { 
+    const fetchData = debounce(async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "chats", chatId, "messages"));
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+          if (doc.data().imageUrl) {
+            getDownloadURL(ref(storage, doc.data().imageUrl)).then((url) => {
+              setImageUrls((prev) => [...prev, url]);
+            });
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching documents:', error);
+      }
+    }, 500);
+  
+    fetchData();
+  
+    return fetchData.cancel;
+  }, [chatId, db]);
   
   const handleFileUpload = (event) => {
     setImageUpload(event.target.files[0]);
@@ -48,6 +69,12 @@ const ContactWindow = () => {
           console.log('Uploaded a blob or file!');
           getDownloadURL(snapshot.ref).then((url) => {
             setImageUrls((prev) => [...prev, url]);
+          });
+          addDoc(collection(db, "chats", chatId, "messages"), {
+            // message: 'Image uploaded',
+            imageUrl: storageRef.fullPath,
+            timestamp: new Date(),
+            sender: currentUser.email,
           });
         })
         .catch((uploadError) => {
@@ -102,6 +129,20 @@ const ContactWindow = () => {
     document.body.appendChild(script);
   };
 
+  const onAcceptClick=()=>{
+    const jobRef = doc(db, "jobs", params.id);
+    updateDoc(jobRef, {
+      status: "completed",
+    });
+  }
+
+  const onResubmitClick=()=>{
+    const chatRef = doc(db, "chats", chatId, "messages");
+    addDoc(chatRef, {
+      message: "Resubmit",
+      timestamp: new Date(),
+    });
+  }
   return (
     <div className="chat-window">
       <h2>{currentUser === freelancer ? client : freelancer}</h2>
@@ -122,6 +163,8 @@ const ContactWindow = () => {
         <label htmlFor="file-upload" className="file-action-button">Select Files</label>
         <button onClick={uploadFile}>Upload File</button>
         <button onClick={loadRazorpay}>Pay</button>
+        <button onClick={onAcceptClick}>Accept Work</button>
+        <button>Ask to Resubmit</button>
       </div>
     </div>
   );

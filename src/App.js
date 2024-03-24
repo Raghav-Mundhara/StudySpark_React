@@ -27,7 +27,7 @@ function App() {
         <Route path="/home" element={<Home/>} /> 
         <Route path="/myorders" element={<MyOrders/>} />
         <Route path="/myworks" element={<MyWorks/>} />
-        <Route path="/chat/:freelancer/:client" element={<ContactWindow/>}/>
+        <Route path="/chat/:id/:freelancer/:client" element={<ContactWindow/>}/>
       </Routes>
     </BrowserRouter>
     </NextUIProvider>
