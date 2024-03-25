@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { auth } from '../firebase';
 import {
   ref,
@@ -11,7 +11,7 @@ import "../style.css";
 import { useParams } from 'react-router-dom';
 import { addDoc, getFirestore, updateDoc , doc } from 'firebase/firestore';
 import { getDocs, collection, query, orderBy } from 'firebase/firestore'; 
-
+import { useNavigate } from 'react-router-dom';
 const ContactWindow = () => {
   const params = useParams();
   const { freelancer, client } = params;
@@ -24,7 +24,7 @@ const ContactWindow = () => {
   users.sort();
   const chatId = users[0] + users[1];
   const db = getFirestore();
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -138,6 +138,7 @@ const ContactWindow = () => {
         image: "https://example.com/your_logo",
         handler: function (response) {
           alert(response.razorpay_payment_id);
+          navigate(`/review/${params.id}/${freelancer}/${client}`)
         },
         prefill: {
           name: "Customer Name",

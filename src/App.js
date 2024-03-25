@@ -11,6 +11,7 @@ import Home from "./Components/Home.jsx";
 import MyOrders from "./Components/MyOrders.jsx";
 import MyWorks from "./Components/MyWork.jsx";
 import ContactWindow from "./Components/Contactwindow.jsx";
+import Review from "./Components/Review.jsx";
 function App() {
   return (
     <NextUIProvider>
@@ -28,6 +29,7 @@ function App() {
         <Route path="/myorders" element={<MyOrders/>} />
         <Route path="/myworks" element={<MyWorks/>} />
         <Route path="/chat/:id/:freelancer/:client" element={<ContactWindow/>}/>
+        <Route path='/review/:id/:freelancer/:client' element={<Review/>} />
       </Routes>
     </BrowserRouter>
     </NextUIProvider>
