@@ -31,8 +31,8 @@ function Review() {
   const [user, setUser] = useState(null);
   const [review, setReview] = useState('');
   const [title, setTitle] = useState('');
-  const [stars, setStars] = useState(0);
-  const [sentiment, setSentiment] = useState('');
+  // const [stars, setStars] = useState(0);
+  // const [sentiment, setSentiment] = useState('');
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -64,6 +64,7 @@ function Review() {
 
   const submitReview = async () => {
     var sentiment = '';
+    var stars=0;
     try {
       axios.post('http://127.0.0.1:5000/getReview', {
         review: review
@@ -71,29 +72,34 @@ function Review() {
         console.log(response.data.sentiment[0]);
         if(response.data.sentiment[0] > 0.5){
           // console.log(5);
-          setSentiment('Positive');
+          // setSentiment('Positive');
           sentiment = 'Positive';
-          setStars(5);
+          stars = 5;
+          // setStars(5);
           // console.log(`stars: ${stars}`);
         }else if(response.data.sentiment[0] > 0.2){
           // console.log(4);
-          setSentiment('Positive');
+          // setSentiment('Positive');
           sentiment = 'Positive';
-          setStars(4);
+          // setStars(4);
+          stars = 4;
           // console.log(`stars: ${stars}`);
 
         }else if(response.data.sentiment[0] >= 0.0){
           // console.log(3);
-          setSentiment('Neutral');
+          // setSentiment('Neutral');
           sentiment = 'Neutral';
-          setStars(3);
+          // setStars(3);
+          stars = 3;
           // console.log(`stars: ${stars}`);
 
         }else if(response.data.sentiment[0] > -0.2){
           // console.log(2);
-          setSentiment('Negative');
+          // setSentiment('Negative');
           sentiment = 'Negative';
-          setStars(2);
+          stars = 2;
+          // setStars(2);
+
           // console.log(`stars: ${stars}`);
 
         }
@@ -101,8 +107,9 @@ function Review() {
           // console.log(1);
           // console.log('Negative');
           sentiment = 'Negative';
-          setSentiment('Negative');
-          setStars(1);
+          stars = 1;
+          // setSentiment('Negative');
+          // setStars(1);
           // console.log(`stars: ${stars}`);
 
         }
