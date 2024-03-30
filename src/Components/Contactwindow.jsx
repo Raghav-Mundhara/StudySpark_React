@@ -25,7 +25,8 @@ const ContactWindow = () => {
   const chatId = users[0] + users[1];
   const db = getFirestore();
   const navigate = useNavigate();
-
+  // console.log(`curr:${currentUser}`);
+  // console.log(currentUser?.email);
   useEffect(() => {
     const fetchJob = async () => {
       try{
