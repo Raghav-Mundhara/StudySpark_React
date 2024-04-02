@@ -20,6 +20,7 @@ const ContactWindow = () => {
   const [messages, setMessages] = useState([]); // Store messages in state
   const [imageUrls, setImageUrls] = useState([]);
   const [job, setJob] = useState(null);
+  const [messageText, setMessageText] = useState('');
   const users = [freelancer, client];
   users.sort();
   const chatId = users[0] + users[1];
@@ -113,16 +114,11 @@ const ContactWindow = () => {
     }
   };
   
-  const loadRazorpay = () => {
+  const loadRazorpay =async () => {
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.onerror = () => alert('Razorpay SDK failed to load. Are you online?');
     script.onload = () => {
-      // Display a prompt to get the amount from the user
-      // const amountInput = prompt('Enter the amount to pay (in INR):');
-      
-      // Check if the user entered a valid amount
-      // const amount = parseFloat(amountInput);
       const amount = parseFloat(job.budget);
       
       if (isNaN(amount) || amount <= 0) {
@@ -157,6 +153,16 @@ const ContactWindow = () => {
       paymentObject.open();
     };
     document.body.appendChild(script);
+    try {
+      await addDoc(collection(db, "chats", chatId, "messages"), {
+        message: "Payment Completed",
+        timestamp: new Date(),
+        sender: currentUser.email,
+      });
+      setMessageText(''); // Clear the input field after sending the message
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
   const onAcceptClick = () => {
@@ -164,7 +170,21 @@ const ContactWindow = () => {
     updateDoc(jobRef, {
       status: "completed",
     });
+    alert("Job marked as completed");
   }
+
+  const sendMessage = async () => {
+    try {
+      await addDoc(collection(db, "chats", chatId, "messages"), {
+        link: messageText,
+        timestamp: new Date(),
+        sender: currentUser.email,
+      });
+      setMessageText(''); // Clear the input field after sending the message
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
 
   const onResubmitClick = async () => {
     try {
@@ -200,6 +220,7 @@ const ContactWindow = () => {
           <div key={index}>
             {message.message && <p style={{ color: 'white' }} key={index}>{message.message}</p>}
             {message.imageUrl && <img key={index} src={message.imageUrl} alt="uploaded" />}
+            {message.link &&  <a href={message.link}>Final Work : {message.link}</a>}
           </div>
         ))}
       </div>
@@ -216,6 +237,13 @@ const ContactWindow = () => {
           {currentUser?.email === client?<button onClick={onResubmitClick}>Resubmit</button>:null}
           {currentUser?.email===client?<button onClick={loadRazorpay}>Pay</button>:null}
           {currentUser?.email===client?<button onClick={onAcceptClick}>Accept</button>:null}
+          {currentUser?.email===freelancer &&  job?.status==="completed"?<input
+            type="text"
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            placeholder="Type your message here"
+          />:null}
+          {currentUser?.email===freelancer &&  job?.status==="completed"?<button onClick={sendMessage}>Send</button>:null}
     </div>
   </div>
 </div>
