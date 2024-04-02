@@ -38,6 +38,8 @@ const Profile = () => {
   const [userName, setUserName] = useState(null);
   const [userNumber, setUserNumber] = useState(null);
   const [userProjects, setUserProjects] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [avgRating, setAvgRating] = useState(0);
   let navigate = useNavigate();
   const auth = getAuth();
   const [skills, setSkills] = useState([]);
@@ -64,8 +66,16 @@ const Profile = () => {
           console.log(temp);
           setSkills(temp);
           console.log(skills);
-          temp=docSnap.data().projects;
+          temp = docSnap.data().projects;
           setUserProjects(temp);
+          setReviews(docSnap.data().reviews);
+          var sum = 0;
+          for (var i = 0; i < reviews.length; i++) {
+            sum += reviews[i].stars;
+          }
+          console.log(sum);
+          sum = sum / reviews.length;
+          setAvgRating(sum);
         } else {
           console.log("No such document!");
         }
@@ -73,10 +83,11 @@ const Profile = () => {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  }, [userEmail]);
+  }, [userEmail,avgRating]);
   useEffect(() => {
     console.log("Updated skills:", skills);
     console.log("Updated projects:", userProjects);
+    console.log("Updated reviews:", reviews);
   }, [skills, userProjects]);
   return (
     <ProfileContainer>
@@ -164,32 +175,93 @@ const Profile = () => {
                   {
                     userProjects.length === 0 ? (
                       <li>Loading...</li>
-                    ) : 
+                    ) :
                       userProjects.map((project) => (
                         <Textarea
-                      isReadOnly
-                      label={project.title}
-                      variant="bordered"
-                      labelPlacement="outside"
-                      defaultValue={project.description}
-                      className="max-w-5xl"
-                    />
+                          isReadOnly
+                          label={project.title}
+                          variant="bordered"
+                          labelPlacement="outside"
+                          defaultValue={project.description}
+                          className="max-w-5xl"
+                        />
                       )
-                    )
+                      )
                   }
-                  </ul>
-                </CardBody>
-              </Card>
-            </CardBody>
-            <CardFooter>
+                </ul>
+              </CardBody>
+            </Card>
+            <Divider
+              style={{
+                marginTop: '20px',
+                marginBottom: '20px',
+              }}
+            />
+            <Card>
+              <CardHeader
+                style={{
+                  fontWeight: 'bold',
+                  padding: '10px', // Adjust the value as needed
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}
+              >
+                <span>Reviews</span>
+  <p style={{ display: 'flex', alignItems: 'center' }}>
+    <span>{avgRating===NaN ? null : avgRating}</span>
+    {avgRating > 0 && Array.from({ length: avgRating }).map((_, index) => (
+      <svg
+        key={index}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="#000000"
+        style={{ marginRight: '2px' }}
+      >
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    ))}
+  </p>
+              </CardHeader>
+              <CardBody>
+                {reviews.map((review, index) => (
+                  <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                    <span style={{ marginRight: '10px' }}>{review.review}</span>
+                    {[...Array(review.stars)].map((_, index) => (
+                      <svg
+                        key={index}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                        fill="#000000"
+                        style={{ marginRight: '2px' }}
+                      >
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                        <path d="M0 0h24v24H0z" fill="none" />
+                      </svg>
+                    ))}
+                  </div>
+                ))}
+              </CardBody>
+            </Card>
+
+
+
+          </CardBody>
+          <CardFooter>
             <Link to="/editprofile"><Button color="success">Edit Profile</Button></Link>
-            </CardFooter>
-          </Card>
-        </ContentContainer>
-        <br />
-      </ProfileContainer>
-    );
-  };
-  
-  export default Profile;
-  
+          </CardFooter>
+        </Card>
+      </ContentContainer>
+      <br />
+    </ProfileContainer>
+  );
+};
+
+export default Profile;

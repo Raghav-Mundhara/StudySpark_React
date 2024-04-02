@@ -30,13 +30,13 @@ const ContactWindow = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try{
-        console.log(params.id);
+        // console.log(params.id);
         const jobCollection = collection(db, "jobs");
         const jobSnapshot = await getDocs(jobCollection);
         jobSnapshot.forEach((doc) => {
           if(doc.id === params.id){
             setJob(doc.data());
-            console.log(doc.data());
+            // console.log(doc.data());
           }
         });
       }catch(e){
@@ -47,13 +47,13 @@ const ContactWindow = () => {
     fetchJob();
   }, [params.id] )
   useEffect(() => {
-    console.log(job);
+    // console.log(job);
   })
   useEffect(() => { 
     const fetchData = async () => {
       try {
-        console.log("Freelancer: ", freelancer);
-        console.log("Client: ", client);
+        // console.log("Freelancer: ", freelancer);
+        // console.log("Client: ", client);
         const messagesRef = collection(db, "chats", chatId, "messages");
         const messagesQuery = query(messagesRef, orderBy("timestamp")); // Query to order messages by timestamp
         const querySnapshot = await getDocs(messagesQuery);
@@ -107,7 +107,7 @@ const ContactWindow = () => {
         timestamp: new Date(),
         sender: currentUser.email,
       });
-      console.log('Image uploaded and message added successfully.');
+      // console.log('Image uploaded and message added successfully.');
     } catch (error) {
       console.error('Error uploading file: ', error);
     }
@@ -188,40 +188,38 @@ const ContactWindow = () => {
   };
   
   return (
-    <div className="chat-window">
-      <h2>{currentUser === freelancer ? freelancer : client}</h2>
-      <div className="chat-content">
-        <div className="chat-messages">
-          {messages.map((message, index) => (
-            <div key={index}>
-              {message.message && <p style={{ color: 'white' }} key={index}>{message.message}</p>}
-              {message.imageUrl && <img key={index} src={message.imageUrl} alt="uploaded" />}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="chat-actions">
-        
-          
-            <input
-              type="file"
-              onChange={handleFileUpload}
-              style={{ display: 'block' }}
-              id="file-upload"
-            />
-            {/* <label htmlFor="file-upload" className="file-action-button">Select Files</label> */}
-            <button onClick={uploadFile}>Upload File</button>
-            <button onClick={onResubmitClick}>Resubmit</button>
-          
-        
-        
-          
-            <button onClick={loadRazorpay}>Pay</button>
-            <button onClick={onAcceptClick}>Accept</button>
-          
-        
+    <div className="app">
+  <div className="chat-window">
+    {console.log(currentUser?.email)}
+    {console.log(freelancer)}
+    {console.log(client)}
+    <h2>{currentUser?.email === freelancer ? client : freelancer}</h2>
+    <div className="chat-content">
+      <div className="chat-messages">
+        {messages.map((message, index) => (
+          <div key={index}>
+            {message.message && <p style={{ color: 'white' }} key={index}>{message.message}</p>}
+            {message.imageUrl && <img key={index} src={message.imageUrl} alt="uploaded" />}
+          </div>
+        ))}
       </div>
     </div>
+    <div className="chat-actions">
+          {currentUser?.email===freelancer?<input
+            type="file"
+            onChange={handleFileUpload}
+            style={{ display: 'block' }}
+            id="file-upload"
+          />:null}
+          {/* <label htmlFor="file-upload" className="file-action-button">Select Files</label> */}
+          {currentUser?.email === freelancer?<button onClick={uploadFile}>Upload File</button>:null}
+          {currentUser?.email === client?<button onClick={onResubmitClick}>Resubmit</button>:null}
+          {currentUser?.email===client?<button onClick={loadRazorpay}>Pay</button>:null}
+          {currentUser?.email===client?<button onClick={onAcceptClick}>Accept</button>:null}
+    </div>
+  </div>
+</div>
+
   );
 };
 
