@@ -72,7 +72,7 @@ function JobListing() {
           const currentDate = new Date();
           const daysDifference = Math.floor((deadlineDate - currentDate) / (1000 * 60 * 60 * 24));
           // console.log(item.client);
-          if (daysDifference > 0 && item.client !== auth.currentUser.email)  {
+          if (daysDifference > 0 && item.client !== auth.currentUser.email && item.status === "Unassigned")  {
             return (
               <Card
                 shadow="sm"
