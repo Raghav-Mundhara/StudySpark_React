@@ -54,7 +54,6 @@ function MyWorks() {
                 const querySnapshot = await getDocs(collection(db, "jobs"));
                 let temp = [];
                 querySnapshot.forEach((doc) => {
-                    // console.log(doc.data()['email']);
                     if (doc.data()['freelancer'] === user.email) {
                         temp.push({ ...doc.data(), id: doc.id });
                     }
@@ -84,7 +83,7 @@ function MyWorks() {
                         shadow="sm"
                         key={index}
                         isPressable
-                        onPress={() => navigate(`/Jobpage/${ item.id }`)}
+                        onPress={() => navigate(`/chat/${item.id}/${item.freelancer}/${item.client}`)}
                         style={{
                             marginTop: "20px",
                             width: "700px",
@@ -102,7 +101,7 @@ function MyWorks() {
                                 {truncateDescription(item.description, 100)}
                                 {item.description.length > 100 && (
                                     <span>
-                                        <button onClick={() => navigate(`/Jobpage/${ item.id }`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
+                                        <button onClick={() => navigate(`/chat/${item.id}/${item.freelancer}/${item.client}`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
                                     </span>
                                 )}
                             </div>

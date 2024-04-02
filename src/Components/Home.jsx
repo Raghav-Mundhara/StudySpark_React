@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import '../style.css';
-import ContactsSidebar from './Sidebar.jsx';
-import ChatWindow from './Contactwindow.jsx';
+import Sidebar from './Sidebar';
+import ContactWindow from './Contactwindow.jsx';
+
 
 const dummyContacts = [
-  { email: 'kaushik@gmail.com' },
+  { email: ' ' },
   { email: 'anushka@gmail.com' },
+  { email: 'kaushik@gmail.com' },
   { email: 'raghav@gmail.com' },
   { email: 'nishtha@gmail.com' },
 ];
@@ -19,8 +21,8 @@ function App() {
 
   return (
     <div className="app">
-      <ContactsSidebar contacts={dummyContacts} onSelectContact={handleSelectContact} />
-      <ChatWindow activeContact={selectedContact} />
+      <Sidebar contacts={dummyContacts} onSelectContact={handleSelectContact} />
+      <ContactWindow activeContact={selectedContact} />
     </div>
   );
 }

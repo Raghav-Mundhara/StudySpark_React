@@ -144,7 +144,8 @@ function PostJob() {
                 deadline: selectedDate,
                 email: userEmail,
                 skills: skills,
-                service: selectedOptionValue
+                service: selectedOptionValue,
+                status:"Unassigned"
             });
             alert("Job Posted Successfully")
             setSelectedDate(new Date());

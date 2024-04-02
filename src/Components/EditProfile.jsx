@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, Button, Textarea, Divider } from "@nextui-org/react";
 import styled from 'styled-components';
 import { db } from '../firebase';
-import { collection, addDoc, getDoc, getDocs, setDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDoc, getDocs, setDoc, doc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import Header1 from './Header1';
@@ -31,7 +31,7 @@ const EditProfile = () => {
   const handleSave = async () => {
     try {
       const userDocRef = doc(db, "users", email); // Reference to the user document
-      await setDoc(userDocRef, {
+      await updateDoc(userDocRef, {
         name: name,
         email: email,
         phoneNumber: phoneNumber,
@@ -40,7 +40,8 @@ const EditProfile = () => {
           title: project.title,
           description: project.description,
         })),
-      });
+      }, { merge: true });
+      
 
       navigate('/profile');
     } catch (error) {

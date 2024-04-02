@@ -33,6 +33,10 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
+  .chat-content {
+    overflow-y: auto; /* Make the chat content scrollable */
+  }
+  
   /* Contacts sidebar styles */
   .contact {
     padding: 20px;

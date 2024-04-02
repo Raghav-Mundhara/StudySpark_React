@@ -219,34 +219,6 @@ const JobPage = () => {
         </CardFooter>
       </Card>
 
-      <ReviewContainer>
-        <Review>
-          <Rating>⭐⭐⭐⭐⭐</Rating>
-          <ClientName>John Doe</ClientName>
-          <ReviewContent>
-            "Working with this Front-End Developer was a fantastic experience. They delivered top-notch work and exceeded our expectations. Highly recommended!"
-          </ReviewContent>
-        </Review>
-        <Review>
-          <Rating>⭐⭐⭐⭐⭐</Rating>
-          <ClientName>Jane Smith</ClientName>
-          <ReviewContent>
-            "The Front-End Developer showcased exceptional skills and attention to detail. Our website now looks stunning and functions seamlessly. Will definitely hire again!"
-          </ReviewContent>
-        </Review>
-
-        <Review>
-          <Rating>⭐⭐⭐⭐⭐</Rating>
-          <ClientName>Bob Johnson</ClientName>
-          <ReviewContent>
-            "Professionalism at its best! The Front-End Developer was responsive, creative, and delivered on time. A pleasure to work with."
-          </ReviewContent>
-        </Review>
-      </ReviewContainer>
-
-
-      {/* <Pricing>Price: {price}</Pricing> */}
-
 
       <Button color='success' onClick={handleOnAcceptClick}>Accept Offer</Button>
       <br />

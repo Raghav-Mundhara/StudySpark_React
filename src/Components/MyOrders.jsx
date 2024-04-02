@@ -84,7 +84,7 @@ function MyOrders() {
                         shadow="sm"
                         key={index}
                         isPressable
-                        onPress={() => navigate(`/Jobpage/${ item.id }`)}
+                        onPress={() => navigate(`/chat/${ item.id }/${item.freelancer}/${item.client}`)}
                         style={{
                             marginTop: "20px",
                             width: "700px",
@@ -102,7 +102,7 @@ function MyOrders() {
                                 {truncateDescription(item.description, 100)}
                                 {item.description.length > 100 && (
                                     <span>
-                                        <button onClick={() => navigate(`/Jobpage/${ item.id }`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
+                                        <button onClick={() => navigate(`/chat/${ item.id }/${item.freelancer}/${item.client}`)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#007bff' }}>Read more</button>
                                     </span>
                                 )}
                             </div>
