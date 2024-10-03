@@ -36,7 +36,7 @@ To set up the project locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/StudySpark.git
+   git clone https://github.com/Raghav-Mundhara/StudySpark_React.git
    cd StudySpark
    ```
 2. **Install dependencies:**
