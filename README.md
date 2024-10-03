@@ -64,15 +64,15 @@ To set up the project locally:
 Here are some screenshots of **StudySpark** in action:
 
 ### Profile
-![StudySpark Home Page](./profilee.png)
+![Profile Page](./profilee.png)
 
 ### Homepage
-![Freelancer Dashboard](./JobListing.png)
+![Job Listing Page](./joblisting.png)
 
 ### Job Description
-![Client Dashboard](./JD.png)
+![Job Description Page](./JD.png)
 
-### Service Selection
-![Service Selection](.service-selection.png)
+### Post a Job
+![Job Post Page](./jobpost.png)
 
 
