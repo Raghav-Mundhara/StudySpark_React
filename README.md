@@ -39,3 +39,22 @@ To set up the project locally:
    git clone https://github.com/yourusername/StudySpark.git
    cd StudySpark
    ```
+2. **Install dependencies:**
+   ```bash
+   npm i
+   ```
+3. ***Create a .env file in the backend folder and add the following:***
+  ```bash
+  FIREBASE_API_KEY=<your-firebase-api-key>
+  FIREBASE_AUTH_DOMAIN=<your-firebase-auth-domain>
+  FIREBASE_PROJECT_ID=<your-firebase-project-id>
+  FIREBASE_STORAGE_BUCKET=<your-firebase-storage-bucket>
+  FIREBASE_MESSAGING_SENDER_ID=<your-firebase-messaging-sender-id>
+  FIREBASE_APP_ID=<your-firebase-app-id>
+  PORT=5000
+  ```
+4. ***Start the frontend development server***
+   ```bash
+   npm start
+   ```
+5. Visit `http://localhost:3000` to view the app.
